@@ -1,0 +1,59 @@
+/* Wrapper for character card section */
+.character-card-section {
+    position: relative;
+    width: 90vw; /* Set the width to 90% of the viewport width */
+    max-width: 80rem;
+    margin: 0 auto; /* Center horizontally */
+    margin-top: 3rem;
+    background: #f0f0f0; /* Optional background decoration */
+    border: 2px solid #333; /* Optional border */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Align items at the top */
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem; /* Space between rows of cards */
+    overflow: hidden; /* Prevent cards from overflowing the container */
+  }
+  
+  /* character card container */
+  .character-card-container {
+    display: flex;
+    flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+    gap: 1rem; /* Space between items */
+    list-style: none; /* Removes default list styling */
+    padding: 0;
+    margin: 0;
+    justify-content: center; /* Centers items horizontally */
+    width: 100%;
+  }
+  
+  /* character card inner styling */
+  .character-card-inner {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+  
+  /* character card image styling */
+  .character-card-inner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  /* character card name styling */
+  .character-card-inner p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(0, 0, 255, 0.6); /* Semi-transparent blue background */
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
