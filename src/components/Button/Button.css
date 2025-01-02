@@ -1,0 +1,92 @@
+.button {
+    width: 80px; /* Smaller width */
+    height: 32px; /* Smaller height */
+    line-height: 32px; /* Adjusted line height to center text properly */
+    font-size: 16px; /* Smaller font size */
+    background: yellow;
+    border: 2px solid #FF8C00 !important; /* Orange border */
+    color: orange;
+    letter-spacing: 2px; /* Adjusted letter spacing */
+    outline: transparent;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+  
+    /* Adding shadow to the button */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow effect */
+  }
+  
+  .button:after {
+    --slice-0: inset(50% 50% 50% 50%);
+    --slice-1: inset(70% -6px 0 0); /* Adjusted clip-path for smaller button */
+    --slice-2: inset(40% -6px 20% 0); /* Adjusted clip-path for smaller button */
+    --slice-3: inset(10% -6px 60% 0); /* Adjusted clip-path for smaller button */
+    --slice-4: inset(30% -6px 30% 0); /* Adjusted clip-path for smaller button */
+    --slice-5: inset(70% -6px 3% 0); /* Adjusted clip-path for smaller button */
+    
+    content: 'ALTERNATE TEXT';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 3%, #FF8C00 3%, #FF8C00 5%, #FFD700 5%); /* Updated colors to orange and yellow */
+    text-shadow: -2px -2px 0px #F8F005, 2px 2px 0px #FF8C00; /* Updated text-shadow to orange */
+    clip-path: var(--slice-0);
+  }
+  
+  .button:hover:after {
+    animation: 1s glitch;
+    animation-timing-function: steps(2, end);
+  }
+  
+  @keyframes glitch {
+    0% {
+      clip-path: var(--slice-1);
+      transform: translate(-10px, -5px); /* Adjusted transform for smaller button */
+    }
+    10% {
+      clip-path: var(--slice-3);
+      transform: translate(5px, 5px); /* Adjusted transform for smaller button */
+    }
+    20% {
+      clip-path: var(--slice-1);
+      transform: translate(-5px, 5px); /* Adjusted transform for smaller button */
+    }
+    30% {
+      clip-path: var(--slice-3);
+      transform: translate(0px, 2px); /* Adjusted transform for smaller button */
+    }
+    40% {
+      clip-path: var(--slice-2);
+      transform: translate(-3px, 0px); /* Adjusted transform for smaller button */
+    }
+    50% {
+      clip-path: var(--slice-3);
+      transform: translate(3px, 0px); /* Adjusted transform for smaller button */
+    }
+    60% {
+      clip-path: var(--slice-4);
+      transform: translate(3px, 5px); /* Adjusted transform for smaller button */
+    }
+    70% {
+      clip-path: var(--slice-2);
+      transform: translate(-5px, 5px); /* Adjusted transform for smaller button */
+    }
+    80% {
+      clip-path: var(--slice-5);
+      transform: translate(10px, -5px); /* Adjusted transform for smaller button */
+    }
+    90% {
+      clip-path: var(--slice-1);
+      transform: translate(-5px, 0px); /* Adjusted transform for smaller button */
+    }
+    100% {
+      clip-path: var(--slice-1);
+      transform: translate(0);
+    }
+  }
+  

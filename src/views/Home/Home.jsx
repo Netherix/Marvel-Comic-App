@@ -42,23 +42,25 @@ const Home = () => {
       </div>
 
       {/* Wrapper for character cards */}
-      <div className="character-card-section">
-        <ul className="character-card-container">
-          {characters.map((character) => (
-            <li key={character.id}>
-              <div className="character-card-inner">
-                <img
-                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                  alt={character.name}
-                  width="300"
-                  height="300"
-                />
-                <p>{character.name}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {characters.length > 0 && (
+        <div className="character-card-section">
+          <ul className="character-card-container">
+            {characters.map((character) => (
+              <li key={character.id}>
+                <div className="character-card-inner">
+                  <img
+                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                    alt={character.name}
+                    width="300"
+                    height="300"
+                  />
+                  <p>{character.name}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 };

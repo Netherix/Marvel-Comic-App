@@ -1,59 +1,86 @@
+body {
+  background-color: orange; /* Path to your image */
+}
+.search-bar {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar button {
+  margin-left: 1rem;
+}
+
 /* Wrapper for character card section */
 .character-card-section {
-    position: relative;
-    width: 90vw; /* Set the width to 90% of the viewport width */
-    max-width: 80rem;
-    margin: 0 auto; /* Center horizontally */
-    margin-top: 3rem;
-    background: #f0f0f0; /* Optional background decoration */
-    border: 2px solid #333; /* Optional border */
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    justify-content: flex-start; /* Align items at the top */
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem; /* Space between rows of cards */
-    overflow: hidden; /* Prevent cards from overflowing the container */
-  }
+  position: relative;
+  width: 90vw; /* Set the width to 90% of the viewport width */
+  max-width: 80rem;
+  margin: 0 auto; /* Center horizontally */
+  margin-top: 3rem;
+  background: url('src/assets/rb_923.png') no-repeat center center; /* Set background image */
+  background-size: cover; /* Ensure the image covers the entire section */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: flex-start; /* Align items at the top */
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem; /* Space between rows of cards */
+  overflow: hidden; 
   
-  /* character card container */
-  .character-card-container {
-    display: flex;
-    flex-wrap: wrap; /* Ensures wrapping on smaller screens */
-    gap: 1rem; /* Space between items */
-    list-style: none; /* Removes default list styling */
-    padding: 0;
-    margin: 0;
-    justify-content: center; /* Centers items horizontally */
-    width: 100%;
-  }
-  
-  /* character card inner styling */
-  .character-card-inner {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    flex-shrink: 0; /* Prevent shrinking */
-  }
-  
-  /* character card image styling */
-  .character-card-inner img {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  
-  /* character card name styling */
-  .character-card-inner p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    background-color: rgba(0, 0, 255, 0.6); /* Semi-transparent blue background */
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-  }
+}
+
+/* Character card container */
+.character-card-container {
+  display: flex;
+  flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+  gap: 1rem; /* Space between items */
+  list-style: none; /* Removes default list styling */
+  padding: 0;
+  margin: 0;
+  justify-content: center; /* Centers items horizontally */
+  width: 100%;
+}
+
+/* Character card inner styling */
+.character-card-inner {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0; /* Prevent shrinking */
+  cursor: pointer;
+}
+
+.character-card-inner img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.3); /* Adds shadow effect */
+  border: 1px solid black; /* Optional border for emphasis */
+  filter: grayscale(100%); /* Converts image to black and white */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; /* Smooth transition for hover effects */
+  cursor: pointer;
+}
+
+/* Hover effect to enlarge the image, increase shadow intensity, and remove grayscale */
+.character-card-inner img:hover {
+  transform: scale(1.02); /* Slightly enlarge the image */
+  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.6), 0 6px 8px rgba(0, 0, 0, 0.4);
+  filter: grayscale(0%); /* Restores natural color */
+}
+
+/* Character card name styling */
+.character-card-inner p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: orange;
+  background: url('src/assets/rb_923.png') no-repeat center center; /* Semi-transparent blue background */
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 2px 1.3px 0 #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

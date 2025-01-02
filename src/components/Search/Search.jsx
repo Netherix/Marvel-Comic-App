@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types'
+import Button from '../Button/Button';
 
 const Search = ({ setSearchTerm }) => { // Receive setSearchTerm as a prop
   const [inputValue, setInputValue] = useState('');
@@ -20,8 +21,9 @@ const Search = ({ setSearchTerm }) => { // Receive setSearchTerm as a prop
           type="text"
           value={inputValue}
           onChange={handleChange}
+          placeholder='Enter your character name!'
         />
-        <button type="submit">Search</button>
+        <Button text="Search"/>
       </form>
     </>
   );
