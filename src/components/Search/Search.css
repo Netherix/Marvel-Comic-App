@@ -1,0 +1,21 @@
+.search-bar-container {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: center;
+}
+  
+.search-bar {
+    width: 22rem;
+    height: 2rem;
+    margin-bottom: 1rem;
+    border: 2px solid black;
+    text-align: center;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-buttons {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+}
+

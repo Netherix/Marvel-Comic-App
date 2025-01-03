@@ -1,11 +1,12 @@
 .button {
-    width: 80px; /* Smaller width */
-    height: 32px; /* Smaller height */
+    max-width: 300px; /* Smaller width */
+    height: 40px; /* Smaller height */
     line-height: 32px; /* Adjusted line height to center text properly */
     font-size: 16px; /* Smaller font size */
     background: yellow;
     border: 2px solid #FF8C00 !important; /* Orange border */
     color: orange;
+    padding: 5px 15px;
     letter-spacing: 2px; /* Adjusted letter spacing */
     outline: transparent;
     position: relative;
@@ -13,8 +14,6 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     cursor: pointer;
-  
-    /* Adding shadow to the button */
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow effect */
   }
   

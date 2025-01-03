@@ -36,10 +36,18 @@ const Home = () => {
 
   return (
     <>
-      <div className="search-bar">
+      <div className="wolverine-container">
+        <img 
+          src='src/assets/wolverine.png'
+          style={{height: "300px", width: "300px"}}         
+        />
+        <p>Get Searching, Bub!</p>
+      </div>
+
+      <span>
         <Search setSearchTerm={setSearchTerm} />{" "}
         {/* Pass setSearchTerm to Search */}
-      </div>
+      </span>
 
       {/* Wrapper for character cards */}
       {characters.length > 0 && (
