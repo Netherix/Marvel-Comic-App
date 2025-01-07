@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import md5 from "md5"; // hash value function
+import { Link } from "react-router-dom";
 import Search from "../../components/Search/Search";
 import "./Home.css";
 
@@ -7,7 +8,7 @@ const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  console.log(characters)
+  console.log(characters);
 
   const fetchCharacters = async (searchTerm) => {
     const publicKey = import.meta.env.VITE_PUBLIC_KEY;
@@ -29,7 +30,7 @@ const Home = () => {
   };
 
   const handleReset = () => {
-    setSearchTerm('');
+    setSearchTerm("");
     setCharacters([]);
   };
 
@@ -62,15 +63,17 @@ const Home = () => {
           <ul className="character-card-container">
             {characters.map((character) => (
               <li key={character.id}>
-                <div className="character-card-inner">
-                  <img
-                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                    alt={character.name}
-                    width="300"
-                    height="300"
-                  />
-                  <p>{character.name}</p>
-                </div>
+                <Link to={`/comics/${character.id}`}>
+                  <div className="character-card-inner">
+                    <img
+                      src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                      alt={character.name}
+                      width="300"
+                      height="300"
+                    />
+                    <p>{character.name}</p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>
