@@ -1,19 +1,23 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
-import './Search.css'
+import './Search.css';
 
-const Search = ({ setSearchTerm }) => {
-  // Receive setSearchTerm as a prop
+const Search = ({ setSearchTerm, resetSearch }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchTerm(inputValue); // Update the search term when the form is submitted
+    setSearchTerm(inputValue); // Trigger the passed submit function
   };
 
   const handleChange = (e) => {
-    setInputValue(e.target.value); // Update input value on change
+    setInputValue(e.target.value);
+  };
+
+  const handleReset = () => {
+    setInputValue("");
+    resetSearch();
   };
 
   return (
@@ -29,7 +33,7 @@ const Search = ({ setSearchTerm }) => {
           />
           <div className="search-buttons">
             <Button text="Get Character Data" />
-            <Button text="Reset" />
+            <Button text="Reset" onClick={handleReset} />
           </div>
         </form>
       </div>
@@ -39,6 +43,7 @@ const Search = ({ setSearchTerm }) => {
 
 Search.propTypes = {
   setSearchTerm: PropTypes.func.isRequired,
+  resetSearch: PropTypes.func.isRequired,
 };
 
 export default Search;

@@ -10,6 +10,11 @@
   font-size: 2rem;
   color: yellow;
 }
+
+.error-message {
+  text-align: center;
+  color: yellow;
+}
 /* Wrapper for character card section */
 .character-card-section {
   position: relative;
@@ -26,6 +31,7 @@
   padding: 1rem;
   gap: 1rem; /* Space between rows of cards */
   overflow: hidden; 
+  margin-bottom: 2rem;
 }
 
 /* Character card container */
