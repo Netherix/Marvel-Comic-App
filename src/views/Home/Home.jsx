@@ -7,8 +7,9 @@ import "./Home.css";
 const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null); // State for error handling
 
-  console.log(characters);
+  console.log(characters)
 
   const fetchCharacters = async (searchTerm) => {
     const publicKey = import.meta.env.VITE_PUBLIC_KEY;
@@ -24,7 +25,9 @@ const Home = () => {
       }
       const data = await response.json();
       setCharacters(data.data.results);
+      setError(null); // Clear any previous error
     } catch (error) {
+      setError("Failed to fetch characters. Please try again later.");
       console.error("Error fetching Marvel characters:", error);
     }
   };
@@ -32,14 +35,14 @@ const Home = () => {
   const handleReset = () => {
     setSearchTerm("");
     setCharacters([]);
+    setError(null); // Clear error on reset
   };
 
-  // Only fetch characters if searchTerm is non-empty
   useEffect(() => {
     if (searchTerm) {
       fetchCharacters(searchTerm);
     }
-  }, [searchTerm]); // Fetch characters whenever searchTerm changes
+  }, [searchTerm]);
 
   return (
     <>
@@ -56,6 +59,9 @@ const Home = () => {
       <span>
         <Search setSearchTerm={setSearchTerm} resetSearch={handleReset} />
       </span>
+
+      {/* Error message display */}
+      {error && <p className="error-message">{error}</p>}
 
       {/* Wrapper for character cards */}
       {characters.length > 0 && (

@@ -1,13 +1,13 @@
-import './ComicList.css';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import md5 from 'md5';
+import "./ComicList.css";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import md5 from "md5";
 
 const ComicList = () => {
   const { characterId } = useParams();
   const [comics, setComics] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchComics = async () => {
@@ -23,11 +23,13 @@ const ComicList = () => {
           throw new Error(`HTTP Error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setComics(data.data.results); // Store comics data
-        setLoading(false); // Set loading to false
+        setComics(data.data.results);
+        setError(null);
       } catch (error) {
-        setError(error.message); // Set error message
-        setLoading(false); // Set loading to false
+        setError("Failed to fetch comics. Please try again later.");
+        console.error("Error fetching comics:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -35,27 +37,35 @@ const ComicList = () => {
   }, [characterId]);
 
   return (
-    <div className="comics-list-container">
+    <>
       {loading && <p>Loading comics...</p>}
-      {error && <p>Error: {error}</p>}
-      {!loading && !error && comics.length === 0 && <p>No comics available for this character.</p>}
-      {!loading && !error && comics.length > 0 && (
-        <ul className="comics-list">
-          {comics.map((comic) => (
-            <li key={comic.id} className="comic-item">
-              <img
-                src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                alt={comic.title}
-                width="150"
-                height="225"
-              />
-              <h3>{comic.title}</h3>
-              <p>{comic.description || 'No description available.'}</p>
-            </li>
-          ))}
-        </ul>
+      {error && <p className="error-message">{error}</p>}
+      {!loading && !error && comics.length === 0 && (
+        <p>No comics available for this character.</p>
       )}
-    </div>
+
+      {/* wrapper for comics */}
+      {!loading && !error && comics.length > 0 && (
+        <div className="comic-card-section">
+          <ul className="comic-card-container">
+            {comics.map((comic) => (
+              <li key={comic.id}>
+                <div className="comic-card-inner">
+                  <p>{comic.title}</p>
+                  <img
+                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                    alt={comic.title}
+                    width="150"
+                    height="225"
+                  />
+                  <p>{comic.title}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -23,7 +23,7 @@
   margin: 0 auto; /* Center horizontally */
   margin-top: 3rem;
   background: url('src/assets/rb_923.png') no-repeat center center; /* Set background image */
-  background-size: cover; /* Ensure the image covers the entire section */
+  background-size: cover;
   display: flex;
   flex-direction: column; /* Stack items vertically */
   justify-content: flex-start; /* Align items at the top */
@@ -89,3 +89,4 @@
   font-weight: bold;
   letter-spacing: .2rem;
 }
+
