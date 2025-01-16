@@ -1,5 +1,5 @@
 import "./ComicList.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import md5 from "md5";
 
@@ -38,10 +38,11 @@ const ComicList = () => {
 
   return (
     <>
-      {loading && <p>Loading comics...</p>}
+      {/* loading notifier */}
+      {loading && <p className="pre-load-text">Loading comics...</p>}
       {error && <p className="error-message">{error}</p>}
       {!loading && !error && comics.length === 0 && (
-        <p>No comics available for this character.</p>
+        <p className="pre-load-text">No comics available for this character.</p>
       )}
 
       {/* wrapper for comics */}
@@ -50,16 +51,21 @@ const ComicList = () => {
           <ul className="comic-card-container">
             {comics.map((comic) => (
               <li key={comic.id}>
-                <div className="comic-card-inner">
-                  <p>{comic.title}</p>
-                  <img
-                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                    alt={comic.title}
-                    width="150"
-                    height="225"
-                  />
-                  <p>{comic.title}</p>
-                </div>
+                <Link 
+                  to={`/learn-comic/${comic.id}`}
+                  state={{ comic }}
+                >
+                  <div className="comic-card-inner">
+                    <p>{comic.title}</p>
+                    <img
+                      src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                      alt={comic.title}
+                      width="150"
+                      height="225"
+                    />
+                    <p>{comic.title}</p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>

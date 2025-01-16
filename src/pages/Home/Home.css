@@ -9,6 +9,7 @@
 .wolverine-container p {
   font-size: 2rem;
   color: yellow;
+  text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
 }
 
 .error-message {
@@ -79,13 +80,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 4rem;
   color: orange;
-  background: url('src/assets/rb_923.png') no-repeat center center; /* Semi-transparent blue background */
+  background: url('/src/assets/rb_923.png') no-repeat center center; /* Semi-transparent blue background */
   padding: 5px 10px;
   border-radius: 5px;
   text-align: center;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 2px 1.3px 0 #000;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   letter-spacing: .2rem;
 }

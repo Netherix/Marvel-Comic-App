@@ -64,7 +64,12 @@
     border-radius: 5px;
     text-align: center;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 2px 1.3px 0 #000;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     letter-spacing: .2rem;
+    margin-top: 4rem;
   }
+
+.pre-load-text {
+    color: yellow;
+}

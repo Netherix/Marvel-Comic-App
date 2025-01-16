@@ -1,0 +1,20 @@
+.comic-info-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comic-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    max-width: 50rem;
+}
+
+.comic-info-container p {
+    font-size: 2rem;
+    color: yellow;
+    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
+}
