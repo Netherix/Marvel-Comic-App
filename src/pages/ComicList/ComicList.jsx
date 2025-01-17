@@ -51,19 +51,19 @@ const ComicList = () => {
           <ul className="comic-card-container">
             {comics.map((comic) => (
               <li key={comic.id}>
-                <Link 
-                  to={`/learn-comic/${comic.id}`}
-                  state={{ comic }}
-                >
+                <Link to={`/learn-comic/${comic.id}`} state={{ comic }}>
                   <div className="comic-card-inner">
-                    <p>{comic.title}</p>
                     <img
                       src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                       alt={comic.title}
                       width="150"
                       height="225"
                     />
-                    <p>{comic.title}</p>
+                    <p>
+                      {comic.title.length > 30
+                        ? `${comic.title.substring(0, 30)}...`
+                        : `${comic.title}`}
+                    </p>
                   </div>
                 </Link>
               </li>
