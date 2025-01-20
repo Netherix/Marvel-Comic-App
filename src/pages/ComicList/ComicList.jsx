@@ -23,6 +23,7 @@ const ComicList = () => {
           throw new Error(`HTTP Error! Status: ${response.status}`);
         }
         const data = await response.json();
+        console.log(data)
         setComics(data.data.results);
         setError(null);
       } catch (error) {
