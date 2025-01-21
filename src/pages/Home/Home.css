@@ -9,7 +9,7 @@
 .wolverine-container p {
   font-size: 2rem;
   color: yellow;
-  text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
+  text-shadow: 2px 2px #ff0000;
 }
 
 .error-message {

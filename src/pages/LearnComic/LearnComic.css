@@ -5,26 +5,52 @@
     align-items: center;
     padding: 30px;
     max-width: 50rem;
+    margin: 0 auto;
 }
 
 .comic-info-container p {
     font-size: 2rem;
     color: yellow;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
+    text-shadow: 2px 2px #ff0000;
+}
+
+.title-series-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    border: 6px solid red;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.separator-line {
+    width: 105.5%; /* Adjust width as needed */
+    height: 6px; /* Thickness of the line */
+    background-color: red; /* Red color for the line */
+    border: none; /* Remove default border */
+    margin: 1rem 0; /* Add spacing around the line */
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for depth */
 }
 
 .title-series-container {
+    text-align: center;
     margin-top: -2rem;
 }
 
 .comic-title {
+    font-size: 4rem !important;
+    text-align: center;
     margin-bottom: -1rem;
 }
 
 .comic-info-container a {
+    margin-top: 2rem;
     font-size: 1.5rem;
     color: yellow;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
+    text-shadow: 2px 2px #ff0000;
     text-decoration: underline; /* Optional: Remove underline from the link */   
 }
 
@@ -33,21 +59,53 @@
 }
 
 .comic-info-container img {
+    height: 30rem;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+.comic-description {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(to right, #ffdb4d, #ff9900); /* Orange-yellow gradient */
+    border: 2px solid #ffd700; /* Bright yellow border */
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    max-width: 40rem;
+    text-align: center;
+    position: relative;
+}
+
 .comic-description p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px #ff0000;
+    font-weight: bold;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+    letter-spacing: 2px;
 }
 
-.characters {
-    font-size: 2rem;
-    color: yellow;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
+.character-creator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+.characters,
 .creators {
-    font-size: 2rem;
+    list-style-type: none;
+    font-size: 1.5rem;
     color: yellow;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange;
+    text-shadow: 2px 2px #ff0000;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.characters ul,
+.creators ul {
+    list-style-type: none; /* Removes bullets from the list */
 }

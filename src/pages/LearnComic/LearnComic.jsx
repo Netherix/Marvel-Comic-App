@@ -14,24 +14,29 @@ const LearnComic = () => {
     <>
       <div className="comic-info-container">
         {/* title and series */}
-        <div className="title-series-container">
-          <p className="comic-title">{comic.title}</p>
-          {comic.series && <p>Series: {comic.series.name}</p>}
+        <div className="title-series-image-container">
+          <div className="title-series-container">
+            <p className="comic-title">{comic.title}</p>
+            {comic.series && <p>Series: {comic.series.name}</p>}
+          </div>
+
+          <hr className="separator-line" />
+
+          <img
+            src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+            alt={comic.title}
+            height="500"
+          />
         </div>
 
-        <img
-          src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-          alt={comic.title}
-          height="500"
-        />
         <div className="comic-description">
           <p>{comic.description || "No description available."}</p>
         </div>
 
-        {/* Show the characters featured in the comic */}
+        {/* characters featured in the comic */}
         {comic.characters.items.length > 0 && (
           <div className="characters">
-            <h3>Characters:</h3>
+            <p>Characters:</p>
             <ul>
               {comic.characters.items.map((character, index) => (
                 <li key={index}>{character.name}</li>
@@ -39,11 +44,10 @@ const LearnComic = () => {
             </ul>
           </div>
         )}
-
-        {/* Show the creators of the comic */}
+        {/* creators of the comic */}
         {comic.creators.items.length > 0 && (
           <div className="creators">
-            <h3>Creators:</h3>
+            <p>Creators:</p>
             <ul>
               {comic.creators.items.map((creator, index) => (
                 <li key={index}>
