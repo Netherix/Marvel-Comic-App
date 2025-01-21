@@ -33,30 +33,33 @@ const LearnComic = () => {
           <p>{comic.description || "No description available."}</p>
         </div>
 
-        {/* characters featured in the comic */}
-        {comic.characters.items.length > 0 && (
-          <div className="characters">
-            <p>Characters:</p>
-            <ul>
-              {comic.characters.items.map((character, index) => (
-                <li key={index}>{character.name}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {/* creators of the comic */}
-        {comic.creators.items.length > 0 && (
-          <div className="creators">
-            <p>Creators:</p>
-            <ul>
-              {comic.creators.items.map((creator, index) => (
-                <li key={index}>
-                  {creator.name} - {creator.role}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div className="characters-creators-container">
+          {/* characters featured in the comic */}
+          {comic.characters.items.length > 0 && (
+            <div className="characters">
+              <p>Characters:</p>
+              <ul>
+                {comic.characters.items.map((character, index) => (
+                  <li key={index}>{character.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <hr className="separator-line2"/>
+          {/* creators of the comic */}
+          {comic.creators.items.length > 0 && (
+            <div className="creators">
+              <p>Creators:</p>
+              <ul>
+                {comic.creators.items.map((creator, index) => (
+                  <li key={index}>
+                    {creator.name} - {creator.role}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
 
         {/* Link to Marvel's website */}
         {comicUrl && (

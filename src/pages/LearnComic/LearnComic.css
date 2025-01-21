@@ -66,10 +66,10 @@
 .comic-description {
     margin-top: 2rem;
     padding: 1.5rem;
-    background: linear-gradient(to right, #ffdb4d, #ff9900); /* Orange-yellow gradient */
-    border: 2px solid #ffd700; /* Bright yellow border */
+    background: linear-gradient(to right, #ffdb4d, #ff9900);
+    border: 2px solid #ffd700; 
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
     max-width: 40rem;
     text-align: center;
     position: relative;
@@ -87,25 +87,46 @@
     letter-spacing: 2px;
 }
 
-.character-creator-container {
+.characters-creators-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    margin-top: 2rem;
+    border: 6px solid yellow;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+}
+
+.separator-line2 {
+    background-color: yellow;
+    width: 6px;
+    border: none;
+    margin: 0 auto;
 }
 
 .characters,
 .creators {
     list-style-type: none;
-    font-size: 1.5rem;
     color: yellow;
     text-shadow: 2px 2px #ff0000;
-    display: inline-block;
-    width: 100%;
+    width: 18rem;
     text-align: center;
 }
 
 .characters ul,
 .creators ul {
     list-style-type: none; /* Removes bullets from the list */
+}
+
+.creators li {
+    margin-right: 1.5rem;
+}
+
+.characters {
+    list-style-type: none;
+    color: yellow;
+    text-shadow: 2px 2px #ff0000;
+    text-align: center;
+}
+
+.characters ul {
+    padding: 0;
 }
