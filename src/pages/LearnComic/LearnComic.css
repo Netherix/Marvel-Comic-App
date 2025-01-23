@@ -26,32 +26,38 @@
 }
 
 .separator-line {
-    width: 105.5%; /* Adjust width as needed */
-    height: 6px; /* Thickness of the line */
-    background-color: red; /* Red color for the line */
-    border: none; /* Remove default border */
-    margin: 1rem 0; /* Add spacing around the line */
+    width: 105.5%;
+    height: 6px;
+    background-color: red;
+    border: none;
+    margin: 1rem 0; 
     margin-bottom: 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for depth */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .title-series-container {
     text-align: center;
     margin-top: -2rem;
+    margin-bottom: -1rem;
 }
 
 .comic-title {
-    font-size: 4rem !important;
+    font-size: 3rem !important;
     text-align: center;
     margin-bottom: -1rem;
 }
 
+.comic-series {
+    font-size: 1.5rem !important;
+}
+
 .comic-info-container a {
+    text-align: center;
     margin-top: 2rem;
     font-size: 1.5rem;
     color: yellow;
     text-shadow: 2px 2px #ff0000;
-    text-decoration: underline; /* Optional: Remove underline from the link */   
+    text-decoration: underline;  
 }
 
 .comic-info-container a:hover {
@@ -59,7 +65,7 @@
 }
 
 .comic-info-container img {
-    height: 30rem;
+    height: 25rem;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -129,4 +135,16 @@
 
 .characters ul {
     padding: 0;
+}
+
+@media screen and (max-width: 850px) {
+    .characters-creators-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .separator-line2 {
+        width: 100%;
+        height: 6px;
+    }
 }

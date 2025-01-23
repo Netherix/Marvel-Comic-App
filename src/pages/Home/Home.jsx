@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import md5 from "md5"; // hash value function
 import { Link } from "react-router-dom";
 import Search from "../../components/Search/Search";
+import Nav from "../../components/Nav/Nav";
 import "./Home.css";
 
 const Home = () => {
@@ -46,6 +47,7 @@ const Home = () => {
 
   return (
     <>
+      <Nav />
       {/* Wolverine picture & text */}
       <div className="wolverine-container">
         <img

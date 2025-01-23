@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import "./LearnComic.css";
+import Nav from "../../components/Nav/Nav";
 
 const LearnComic = () => {
   const location = useLocation();
@@ -12,12 +13,15 @@ const LearnComic = () => {
 
   return (
     <>
+      {/* Navbar */}
+      <Nav />
+      
       <div className="comic-info-container">
         {/* title and series */}
         <div className="title-series-image-container">
           <div className="title-series-container">
             <p className="comic-title">{comic.title}</p>
-            {comic.series && <p>Series: {comic.series.name}</p>}
+            {comic.series && <p className="comic-series">Series: {comic.series.name}</p>}
           </div>
 
           <hr className="separator-line" />

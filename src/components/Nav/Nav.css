@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+  }
+  
+  .nav {
+    background-color: rgb(247, 150, 5);
+    color: yellow;
+    display: flex;
+    justify-content: center; /* Centers the nav content, including nav-links */
+    align-items: center;
+    text-shadow: 2px 2px #ff0000;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-links {
+    flex: 1; /* Takes up available space */
+    display: flex;
+    justify-content: center; /* Center-aligns the links */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    gap: 2rem;
+    cursor: pointer;
+  }
+  
+  .nav-links li:hover {
+    background-color: red
+  }
+  
+  .logo {
+    cursor: pointer;
+    width: 7rem;
+  }
+  
+  /* Hamburger icon styling */
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    margin-top: -1.2rem;
+    margin-bottom: -1.2rem;
+  }
+    
+  /* Popup Menu Styling */
+  .popup-menu {
+    position: fixed;
+    top: 0;
+    left: 0; /* Align to the left of the screen */
+    width: 50vw; /* Take up half the screen width */
+    height: 100vh; /* Full height */
+    background-color: orange;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .popup-menu p {
+    color: orange;
+  }
+  
+  .popup-close {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* Close button remains in the top-right of the menu */
+    font-size: 3rem;
+    color: yellow;
+    cursor: pointer;
+  }
+
+  .popup-close:hover {
+    color: red
+  }
+  
+  .popup-links {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .popup-links li {
+    margin: 3rem 0;
+    font-size: 1.5rem;
+    color: yellow;
+    cursor: pointer;
+  }
+  
+  .popup-links li:hover {
+    background-color: red;
+  }
+  
+  .cart {
+    position: relative;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 700px) {
+    .hamburger {
+      display: flex;
+    }
+  
+    .nav-links {
+      display: none;
+    }
+  
+    .nav .cart {
+      position: relative;
+    }
+  }
+

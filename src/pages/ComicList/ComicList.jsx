@@ -2,6 +2,7 @@ import "./ComicList.css";
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import md5 from "md5";
+import Nav from "../../components/Nav/Nav";
 
 const ComicList = () => {
   const { characterId } = useParams();
@@ -23,7 +24,7 @@ const ComicList = () => {
           throw new Error(`HTTP Error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         setComics(data.data.results);
         setError(null);
       } catch (error) {
@@ -39,6 +40,9 @@ const ComicList = () => {
 
   return (
     <>
+      {/* Navbar */}
+      <Nav />
+
       {/* loading notifier */}
       {loading && <p className="pre-load-text">Loading comics...</p>}
       {error && <p className="error-message">{error}</p>}
