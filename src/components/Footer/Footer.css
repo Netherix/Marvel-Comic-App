@@ -1,0 +1,23 @@
+.footer-container {
+    background-color: orange;
+    padding-bottom: 1rem;
+    bottom: 0;
+    width: 100%; /* Make sure the footer takes the full width */
+    position: relative; /* Added this for the shadow to work */
+    position: absolute;
+  }
+
+.spidey-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.spidey-text img {
+    margin-top: .5rem;
+}
+
+.social-links {
+    text-align: center;
+  }

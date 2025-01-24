@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Search from "../../components/Search/Search";
 import Nav from "../../components/Nav/Nav";
 import "./Home.css";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
@@ -87,6 +88,9 @@ const Home = () => {
           </ul>
         </div>
       )}
+
+      {/* footer */}
+      <Footer />
     </>
   );
 };
