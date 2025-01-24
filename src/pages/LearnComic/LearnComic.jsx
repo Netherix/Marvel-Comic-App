@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import "./LearnComic.css";
 import Nav from "../../components/Nav/Nav";
+import Footer from "../../components/Footer/Footer";
 
 const LearnComic = () => {
   const location = useLocation();
@@ -72,6 +73,7 @@ const LearnComic = () => {
           </a>
         )}
       </div>
+      <Footer />
     </>
   );
 };

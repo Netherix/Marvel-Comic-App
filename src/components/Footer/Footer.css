@@ -1,23 +1,43 @@
 .footer-container {
-    background-color: orange;
+    background-color: rgb(247, 150, 5);
     padding-bottom: 1rem;
-    bottom: 0;
     width: 100%; /* Make sure the footer takes the full width */
-    position: relative; /* Added this for the shadow to work */
-    position: absolute;
+    position: relative; /* Changed from absolute to relative */
+    margin-top: 5rem;
   }
 
-.spidey-text {
+.footer-container p {
+    font-size: 1.5rem;
+    color: yellow;
+    text-shadow: 2px 2px #ff0000;
+}
+
+.footer-container a {
+    text-decoration: underline;
+    color: yellow;
+    font-size: 1.5rem;
+
+}
+
+.footer-container a:hover {
+    color:purple;
+}
+  
+.footer-wrapper {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     text-align: center;
-}
-
+    max-width: 80%; /* Restrict the width of the footer content */
+    margin: 0 auto; /* Center the content */
+  }
+  
 .spidey-text img {
     margin-top: .5rem;
 }
-
+  
 .social-links {
     text-align: center;
-  }
+}
+  

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import md5 from "md5";
 import Nav from "../../components/Nav/Nav";
+import Footer from "../../components/Footer/Footer";
 
 const ComicList = () => {
   const { characterId } = useParams();
@@ -76,6 +77,7 @@ const ComicList = () => {
           </ul>
         </div>
       )}
+      <Footer />
     </>
   );
 };
