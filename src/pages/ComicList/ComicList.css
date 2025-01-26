@@ -18,6 +18,21 @@
     margin-bottom: 2rem;
 }
 
+.comic-explore-title {
+    font-size: 2rem;
+    color: yellow;
+    text-shadow: 2px 2px #ff0000;
+    text-align: center;
+    text-decoration: underline;
+    background-color: rgb(247, 150, 5);
+    width: 60%;
+    padding: 1rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
 .comic-card-container {
     display: flex;
     flex-wrap: wrap; /* Ensures wrapping on smaller screens */
@@ -38,8 +53,8 @@
 }
 
 .comic-card-inner img {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height: 300px;
     display: block;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 4px 6px rgba(0, 0, 0, 0.3); /* Adds shadow effect */
     border: 1px solid black; /* Optional border for emphasis */
@@ -60,7 +75,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: orange;
-    background: url('/src/assets/rb_923.png') no-repeat center center; /* Semi-transparent blue background */
+    background: url('/src/assets/3696.jpg') no-repeat center center;
     padding: 5px 10px;
     border-radius: 5px;
     text-align: center;
@@ -73,4 +88,6 @@
 
 .pre-load-text {
     color: yellow;
+    text-shadow: 2px 2px #ff0000;
+    text-align: center;
 }

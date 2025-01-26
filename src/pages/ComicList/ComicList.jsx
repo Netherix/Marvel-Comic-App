@@ -1,16 +1,20 @@
 import "./ComicList.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import md5 from "md5";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
+import LazyLoad from "react-lazyload";
 
 const ComicList = () => {
-  const { characterId } = useParams();
   const [comics, setComics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const { characterId } = useParams();
+  const location = useLocation();
+  const { characterName } = location.state || {};
+  
   useEffect(() => {
     const fetchComics = async () => {
       const publicKey = import.meta.env.VITE_PUBLIC_KEY;
@@ -51,6 +55,10 @@ const ComicList = () => {
         <p className="pre-load-text">No comics available for this character.</p>
       )}
 
+      {!loading && !error && (
+        <p className="comic-explore-title">Explore {characterName} Comics!</p>
+      )}
+
       {/* wrapper for comics */}
       {!loading && !error && comics.length > 0 && (
         <div className="comic-card-section">
@@ -59,17 +67,17 @@ const ComicList = () => {
               <li key={comic.id}>
                 <Link to={`/learn-comic/${comic.id}`} state={{ comic }}>
                   <div className="comic-card-inner">
-                    <img
-                      src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                      alt={comic.title}
-                      width="150"
-                      height="225"
-                    />
-                    <p>
-                      {comic.title.length > 30
-                        ? `${comic.title.substring(0, 30)}...`
-                        : `${comic.title}`}
-                    </p>
+                    <LazyLoad offset={100}>
+                      <img
+                        src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                        alt={comic.title}
+                      />
+                      <p>
+                        {comic.title.length > 30
+                          ? `${comic.title.substring(0, 30)}...`
+                          : `${comic.title}`}
+                      </p>
+                    </LazyLoad>
                   </div>
                 </Link>
               </li>

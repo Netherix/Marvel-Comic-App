@@ -2,7 +2,6 @@
     background-color: rgb(247, 150, 5);
     padding-bottom: 1rem;
     width: 100%; /* Make sure the footer takes the full width */
-    position: relative; /* Changed from absolute to relative */
     margin-top: 5rem;
   }
 

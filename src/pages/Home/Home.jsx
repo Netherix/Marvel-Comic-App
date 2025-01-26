@@ -5,13 +5,14 @@ import Search from "../../components/Search/Search";
 import Nav from "../../components/Nav/Nav";
 import "./Home.css";
 import Footer from "../../components/Footer/Footer";
+import LazyLoad from "react-lazyload";
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null); // State for error handling
 
-  console.log(characters)
+  console.log(characters);
 
   const fetchCharacters = async (searchTerm) => {
     const publicKey = import.meta.env.VITE_PUBLIC_KEY;
@@ -48,7 +49,9 @@ const Home = () => {
 
   return (
     <>
+      {/* Navbar */}
       <Nav />
+
       {/* Wolverine picture & text */}
       <div className="wolverine-container">
         <img
@@ -72,15 +75,18 @@ const Home = () => {
           <ul className="character-card-container">
             {characters.map((character) => (
               <li key={character.id}>
-                <Link to={`/comics/${character.id}`}>
+                <Link 
+                  to={`/comics/${character.id}`}
+                  state={{ characterName: `${character.name}` }}            
+                >
                   <div className="character-card-inner">
-                    <img
-                      src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                      alt={character.name}
-                      width="300"
-                      height="300"
-                    />
-                    <p>{character.name}</p>
+                    <LazyLoad offset={100}>
+                      <img
+                        src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                        alt={character.name}
+                      />
+                      <p>{character.name}</p>
+                    </LazyLoad>
                   </div>
                 </Link>
               </li>

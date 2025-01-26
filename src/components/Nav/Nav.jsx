@@ -14,11 +14,10 @@ function Nav() {
     <nav className="nav">
 
       <ul className="nav-links">
-        <li onClick={() => navigate('/')}>Home</li>
-        <li onClick={() => navigate('/')}>Shop Now</li>
-        <li onClick={() => navigate('/')}>Contact Us</li>
-        <li onClick={() => navigate('/')}>Track Your Order</li>
-        <li onClick={() => navigate('/')}>About</li>
+        <li onClick={() => navigate('/')}>Home/Explore</li>
+        <li onClick={() => navigate('/')}>Favorite Comics</li>
+        <li onClick={() => navigate('/')}>Favorite Characters</li>
+        <li onClick={() => navigate('/')}>TBA</li>
       </ul>
 
       <div className="hamburger" onClick={toggleMenu}>
