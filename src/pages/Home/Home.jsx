@@ -12,8 +12,6 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null); // State for error handling
 
-  console.log(characters);
-
   const fetchCharacters = async (searchTerm) => {
     const publicKey = import.meta.env.VITE_PUBLIC_KEY;
     const privateKey = import.meta.env.VITE_PRIVATE_KEY;
@@ -32,6 +30,32 @@ const Home = () => {
     } catch (error) {
       setError("Failed to fetch characters. Please try again later.");
       console.error("Error fetching Marvel characters:", error);
+    }
+  };
+
+  const fetchRandomCharacter = async () => {
+    const publicKey = import.meta.env.VITE_PUBLIC_KEY;
+    const privateKey = import.meta.env.VITE_PRIVATE_KEY;
+    const timestamp = Date.now();
+    const hash = md5(timestamp + privateKey + publicKey);
+  
+    const totalCharacters = 1564;
+    const randomOffset = Math.floor(Math.random() * totalCharacters);
+  
+    const url = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=1&offset=${randomOffset}`; // Fetch 1 random character
+  
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const randomCharacter = data.data.results[0];
+      setCharacters([randomCharacter]);
+      setError(null);
+    } catch (error) {
+      setError("Failed to fetch a random character. Please try again later.");
+      console.error("Error fetching random Marvel character:", error);
     }
   };
 
@@ -63,7 +87,10 @@ const Home = () => {
       </div>
 
       <span>
-        <Search setSearchTerm={setSearchTerm} resetSearch={handleReset} />
+        <Search 
+          setSearchTerm={setSearchTerm} 
+          resetSearch={handleReset} 
+          randomSearch={fetchRandomCharacter} />
       </span>
 
       {/* Error message display */}

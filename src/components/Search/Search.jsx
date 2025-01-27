@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import './Search.css';
 
-const Search = ({ setSearchTerm, resetSearch }) => {
+const Search = ({ setSearchTerm, resetSearch, randomSearch }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
@@ -34,6 +34,7 @@ const Search = ({ setSearchTerm, resetSearch }) => {
           <div className="search-buttons">
             <Button text="Get Character Data" />
             <Button text="Reset" onClick={handleReset} />
+            <Button text="Randomizer" onClick={randomSearch} />
           </div>
         </form>
       </div>
@@ -44,6 +45,7 @@ const Search = ({ setSearchTerm, resetSearch }) => {
 Search.propTypes = {
   setSearchTerm: PropTypes.func.isRequired,
   resetSearch: PropTypes.func.isRequired,
+  randomSearch: PropTypes.func.isRequired,
 };
 
 export default Search;

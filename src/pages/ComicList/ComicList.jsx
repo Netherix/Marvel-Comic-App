@@ -5,23 +5,32 @@ import md5 from "md5";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import LazyLoad from "react-lazyload";
+import Pagination from "../../components/Pagination/Pagination";
 
 const ComicList = () => {
   const [comics, setComics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const [totalComics, setTotalComics] = useState(0); // Track total number of comics
 
+  // react-router-dom variables
   const { characterId } = useParams();
   const location = useLocation();
   const { characterName } = location.state || {};
-  
+
+  // pagination variables
+  const comicsPerPage = 8;
+  const totalPages = Math.ceil(totalComics / comicsPerPage);
+
   useEffect(() => {
     const fetchComics = async () => {
       const publicKey = import.meta.env.VITE_PUBLIC_KEY;
       const privateKey = import.meta.env.VITE_PRIVATE_KEY;
       const timestamp = Date.now();
       const hash = md5(timestamp + privateKey + publicKey);
-      const url = `http://gateway.marvel.com/v1/public/comics?characters=${characterId}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}`;
+      const offset = (currentPage - 1) * comicsPerPage;
+      const url = `http://gateway.marvel.com/v1/public/comics?characters=${characterId}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${comicsPerPage}&offset=${offset}`;
 
       try {
         const response = await fetch(url);
@@ -31,6 +40,7 @@ const ComicList = () => {
         const data = await response.json();
         console.log(data);
         setComics(data.data.results);
+        setTotalComics(data.data.total);
         setError(null);
       } catch (error) {
         setError("Failed to fetch comics. Please try again later.");
@@ -41,7 +51,7 @@ const ComicList = () => {
     };
 
     fetchComics();
-  }, [characterId]);
+  }, [characterId, currentPage]); // Re-fetch comics when page changes
 
   return (
     <>
@@ -56,8 +66,17 @@ const ComicList = () => {
       )}
 
       {!loading && !error && (
-        <p className="comic-explore-title">Explore {characterName} Comics!</p>
+        <div className="title-wrapper">
+          <p className="comic-explore-title">Explore {characterName} Comics!</p>
+        </div>
       )}
+
+      {/* Pagination Controls */}
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
+      />
 
       {/* wrapper for comics */}
       {!loading && !error && comics.length > 0 && (
@@ -85,6 +104,7 @@ const ComicList = () => {
           </ul>
         </div>
       )}
+
       <Footer />
     </>
   );
