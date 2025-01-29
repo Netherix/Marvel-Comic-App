@@ -19,11 +19,11 @@
   
   .button:after {
     --slice-0: inset(50% 50% 50% 50%);
-    --slice-1: inset(70% -6px 0 0); /* Adjusted clip-path for smaller button */
-    --slice-2: inset(40% -6px 20% 0); /* Adjusted clip-path for smaller button */
-    --slice-3: inset(10% -6px 60% 0); /* Adjusted clip-path for smaller button */
-    --slice-4: inset(30% -6px 30% 0); /* Adjusted clip-path for smaller button */
-    --slice-5: inset(70% -6px 3% 0); /* Adjusted clip-path for smaller button */
+    --slice-1: inset(70% -6px 0 0); 
+    --slice-2: inset(40% -6px 20% 0); 
+    --slice-3: inset(10% -6px 60% 0); 
+    --slice-4: inset(30% -6px 30% 0); 
+    --slice-5: inset(70% -6px 3% 0); 
     
     content: 'ALTERNATE TEXT';
     display: block;
@@ -45,43 +45,43 @@
   @keyframes glitch {
     0% {
       clip-path: var(--slice-1);
-      transform: translate(-10px, -5px); /* Adjusted transform for smaller button */
+      transform: translate(-10px, -5px); 
     }
     10% {
       clip-path: var(--slice-3);
-      transform: translate(5px, 5px); /* Adjusted transform for smaller button */
+      transform: translate(5px, 5px); 
     }
     20% {
       clip-path: var(--slice-1);
-      transform: translate(-5px, 5px); /* Adjusted transform for smaller button */
+      transform: translate(-5px, 5px); 
     }
     30% {
       clip-path: var(--slice-3);
-      transform: translate(0px, 2px); /* Adjusted transform for smaller button */
+      transform: translate(0px, 2px); 
     }
     40% {
       clip-path: var(--slice-2);
-      transform: translate(-3px, 0px); /* Adjusted transform for smaller button */
+      transform: translate(-3px, 0px); 
     }
     50% {
       clip-path: var(--slice-3);
-      transform: translate(3px, 0px); /* Adjusted transform for smaller button */
+      transform: translate(3px, 0px); 
     }
     60% {
       clip-path: var(--slice-4);
-      transform: translate(3px, 5px); /* Adjusted transform for smaller button */
+      transform: translate(3px, 5px); 
     }
     70% {
       clip-path: var(--slice-2);
-      transform: translate(-5px, 5px); /* Adjusted transform for smaller button */
+      transform: translate(-5px, 5px); 
     }
     80% {
       clip-path: var(--slice-5);
-      transform: translate(10px, -5px); /* Adjusted transform for smaller button */
+      transform: translate(10px, -5px); 
     }
     90% {
       clip-path: var(--slice-1);
-      transform: translate(-5px, 0px); /* Adjusted transform for smaller button */
+      transform: translate(-5px, 0px); 
     }
     100% {
       clip-path: var(--slice-1);

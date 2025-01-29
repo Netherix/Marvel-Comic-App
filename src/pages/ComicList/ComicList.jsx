@@ -11,8 +11,8 @@ const ComicList = () => {
   const [comics, setComics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [totalComics, setTotalComics] = useState(0); // Track total number of comics
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalComics, setTotalComics] = useState(0);
 
   // react-router-dom variables
   const { characterId } = useParams();
@@ -65,6 +65,7 @@ const ComicList = () => {
         <p className="pre-load-text">No comics available for this character.</p>
       )}
 
+      {/* title */}
       {!loading && !error && (
         <div className="title-wrapper">
           <p className="comic-explore-title">Explore {characterName} Comics!</p>
@@ -72,11 +73,13 @@ const ComicList = () => {
       )}
 
       {/* Pagination Controls */}
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
-      />
+      {!loading && !error && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
+      )}
 
       {/* wrapper for comics */}
       {!loading && !error && comics.length > 0 && (
@@ -105,6 +108,7 @@ const ComicList = () => {
         </div>
       )}
 
+      {/* footer */}
       <Footer />
     </>
   );
