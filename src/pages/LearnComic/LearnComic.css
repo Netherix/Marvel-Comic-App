@@ -20,7 +20,7 @@
     align-items: center;
     padding: 1rem;
     padding-bottom: 2rem;
-    border: 6px solid red;
+    border: 6px solid yellow;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -28,7 +28,7 @@
 .separator-line {
     width: 105.5%;
     height: 6px;
-    background-color: red;
+    background-color: yellow;
     border: none;
     margin: 1rem 0; 
     margin-bottom: 2rem;
