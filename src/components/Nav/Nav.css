@@ -67,6 +67,7 @@
   }
   
   .popup-close {
+    font-family: 'Roboto', sans-serif;
     position: absolute;
     top: 20px;
     right: 20px; /* Close button remains in the top-right of the menu */
