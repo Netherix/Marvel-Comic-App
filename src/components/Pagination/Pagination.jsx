@@ -1,13 +1,28 @@
 import "./Pagination.css";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
+  const [inputPage, setInputPage] = useState(currentPage);
+
   const handlePreviousPage = () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    setInputPage((prev) => Math.max(prev - 1, 1));
   };
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    setInputPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const handlePageChange = (event) => {
+    const value = event.target.value;
+    setInputPage(value);
+
+    const pageNumber = Number(value);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
   };
 
   return (
@@ -15,19 +30,27 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
       <button
         className="navigation-buttons"
         onClick={handlePreviousPage}
-        disabled={currentPage === 1}        
+        disabled={currentPage === 1}
       >
         Previous
       </button>
-      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-        <button
-          key={page}
-          onClick={() => setCurrentPage(page)}
-          disabled={page === currentPage}
+
+      <label className="page-selector-container">
+        Page 
+        <select
+          className="pagination-dropdown"
+          value={inputPage}
+          onChange={handlePageChange}
         >
-          {page}
-        </button>
-      ))}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <option key={page} value={page}>
+              {page}
+            </option>
+          ))}
+        </select>
+        of {totalPages}
+      </label>
+
       <button
         className="navigation-buttons"
         onClick={handleNextPage}

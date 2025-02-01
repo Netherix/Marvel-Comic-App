@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import md5 from "md5"; // hash value function
-import { Link } from "react-router-dom";
 import Search from "../../components/Search/Search";
 import Nav from "../../components/Nav/Nav";
 import "./Home.css";
 import Footer from "../../components/Footer/Footer";
 import LazyLoad from "react-lazyload";
+import Popup from "../../components/Popup/Popup"; // Import the Popup component
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null); // State for error handling
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // State to control the popup visibility
+  const [selectedCharacter, setSelectedCharacter] = useState(null); // State to hold the selected character
 
   const fetchCharacters = async (searchTerm) => {
     const publicKey = import.meta.env.VITE_PUBLIC_KEY;
@@ -38,12 +40,12 @@ const Home = () => {
     const privateKey = import.meta.env.VITE_PRIVATE_KEY;
     const timestamp = Date.now();
     const hash = md5(timestamp + privateKey + publicKey);
-  
+
     const totalCharacters = 1564;
     const randomOffset = Math.floor(Math.random() * totalCharacters);
-  
+
     const url = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=1&offset=${randomOffset}`; // Fetch 1 random character
-  
+
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -63,6 +65,16 @@ const Home = () => {
     setSearchTerm("");
     setCharacters([]);
     setError(null); // Clear error on reset
+  };
+
+  const handleCharacterClick = (character) => {
+    setSelectedCharacter(character);
+    setIsPopupVisible(true); // Show the popup when a character is clicked
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+    setSelectedCharacter(null); // Reset the selected character when closing the popup
   };
 
   useEffect(() => {
@@ -102,10 +114,7 @@ const Home = () => {
           <ul className="character-card-container">
             {characters.map((character) => (
               <li key={character.id}>
-                <Link 
-                  to={`/comics/${character.id}`}
-                  state={{ characterName: `${character.name}` }}            
-                >
+                <div onClick={() => handleCharacterClick(character)}>
                   <div className="character-card-inner">
                     <LazyLoad offset={100}>
                       <img
@@ -115,11 +124,20 @@ const Home = () => {
                       <p>{character.name}</p>
                     </LazyLoad>
                   </div>
-                </Link>
+                </div>
               </li>
             ))}
           </ul>
         </div>
+      )}
+
+      {/* Display Popup if visible */}
+      {isPopupVisible && (
+        <Popup 
+          characterName={selectedCharacter.name} 
+          onClose={closePopup}
+          characterId={selectedCharacter.id} 
+        />
       )}
 
       {/* footer */}
