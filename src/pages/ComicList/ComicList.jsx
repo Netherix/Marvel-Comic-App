@@ -1,5 +1,5 @@
 import "./ComicList.css";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import md5 from "md5";
 import Nav from "../../components/Nav/Nav";
@@ -14,12 +14,11 @@ const ComicList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalComics, setTotalComics] = useState(0);
 
-  // react-router-dom variables
-  const { characterId } = useParams();
+  // Get character object from state
   const location = useLocation();
-  const { characterName } = location.state || {};
+  const { character } = location.state || {};
 
-  // pagination variables
+  // Pagination variables
   const comicsPerPage = 8;
   const totalPages = Math.ceil(totalComics / comicsPerPage);
 
@@ -30,7 +29,7 @@ const ComicList = () => {
       const timestamp = Date.now();
       const hash = md5(timestamp + privateKey + publicKey);
       const offset = (currentPage - 1) * comicsPerPage;
-      const url = `http://gateway.marvel.com/v1/public/comics?characters=${characterId}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${comicsPerPage}&offset=${offset}`;
+      const url = `http://gateway.marvel.com/v1/public/comics?characters=${character.id}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${comicsPerPage}&offset=${offset}`;
 
       try {
         const response = await fetch(url);
@@ -38,7 +37,6 @@ const ComicList = () => {
           throw new Error(`HTTP Error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
         setComics(data.data.results);
         setTotalComics(data.data.total);
         setError(null);
@@ -51,24 +49,24 @@ const ComicList = () => {
     };
 
     fetchComics();
-  }, [characterId, currentPage]); // Re-fetch comics when page changes
+  }, [character, currentPage]); // Re-fetch comics when page changes
 
   return (
     <>
       {/* Navbar */}
       <Nav />
 
-      {/* loading notifier */}
+      {/* Loading/Error States */}
       {loading && <p className="pre-load-text">Loading comics...</p>}
       {error && <p className="error-message">{error}</p>}
       {!loading && !error && comics.length === 0 && (
         <p className="pre-load-text">No comics available for this character.</p>
       )}
 
-      {/* title */}
-      {!loading && !error && (
+      {/* Title */}
+      {!loading && !error && character && (
         <div className="title-wrapper">
-          <p className="comic-explore-title">Explore {characterName} Comics!</p>
+          <p className="comic-explore-title">Explore {character.name} Comics!</p>
         </div>
       )}
 
@@ -81,7 +79,7 @@ const ComicList = () => {
         />
       )}
 
-      {/* wrapper for comics */}
+      {/* Comics List */}
       {!loading && !error && comics.length > 0 && (
         <div className="comic-card-section">
           <ul className="comic-card-container">
@@ -108,7 +106,7 @@ const ComicList = () => {
         </div>
       )}
 
-      {/* footer */}
+      {/* Footer */}
       <Footer />
     </>
   );

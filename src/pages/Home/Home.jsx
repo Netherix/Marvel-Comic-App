@@ -28,7 +28,7 @@ const Home = () => {
       }
       const data = await response.json();
       setCharacters(data.data.results);
-      setError(null); // Clear any previous error
+      setError(null); 
     } catch (error) {
       setError("Failed to fetch characters. Please try again later.");
       console.error("Error fetching Marvel characters:", error);
@@ -74,7 +74,6 @@ const Home = () => {
 
   const closePopup = () => {
     setIsPopupVisible(false);
-    setSelectedCharacter(null); // Reset the selected character when closing the popup
   };
 
   useEffect(() => {
@@ -137,6 +136,7 @@ const Home = () => {
           characterName={selectedCharacter.name} 
           onClose={closePopup}
           characterId={selectedCharacter.id} 
+          character={selectedCharacter}
         />
       )}
 
