@@ -1,11 +1,11 @@
 import "./ComicList.css";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import md5 from "md5";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 import LazyLoad from "react-lazyload";
 import Pagination from "../../components/Pagination/Pagination";
+import fetchComics from "../../api/MarvelAPI/fetchComics";
 
 const ComicList = () => {
   const [comics, setComics] = useState([]);
@@ -23,33 +23,19 @@ const ComicList = () => {
   const totalPages = Math.ceil(totalComics / comicsPerPage);
 
   useEffect(() => {
-    const fetchComics = async () => {
-      const publicKey = import.meta.env.VITE_PUBLIC_KEY;
-      const privateKey = import.meta.env.VITE_PRIVATE_KEY;
-      const timestamp = Date.now();
-      const hash = md5(timestamp + privateKey + publicKey);
-      const offset = (currentPage - 1) * comicsPerPage;
-      const url = `http://gateway.marvel.com/v1/public/comics?characters=${character.id}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${comicsPerPage}&offset=${offset}`;
+    const getComics = async () => {
+      setLoading(true);
+      if (!character) return;
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP Error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setComics(data.data.results);
-        setTotalComics(data.data.total);
-        setError(null);
-      } catch (error) {
-        setError("Failed to fetch comics. Please try again later.");
-        console.error("Error fetching comics:", error);
-      } finally {
-        setLoading(false);
-      }
+      const result = await fetchComics(character.id, currentPage, comicsPerPage);
+      setComics(result.comics);
+      setTotalComics(result.totalComics);
+      setError(result.error);
+      setLoading(false);
     };
 
-    fetchComics();
-  }, [character, currentPage]); // Re-fetch comics when page changes
+    getComics();
+  }, [character, currentPage]);
 
   return (
     <>
@@ -95,7 +81,7 @@ const ComicList = () => {
                       <p>
                         {comic.title.length > 30
                           ? `${comic.title.substring(0, 30)}...`
-                          : `${comic.title}`}
+                          : comic.title}
                       </p>
                     </LazyLoad>
                   </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { generateText } from "../../api/openAIService"; // Import the Gemini service
+import { generateText } from "../../api/GeminiAPI/fetchText"; // Import the Gemini service
 import { useLocation } from "react-router-dom";
 
 const LearnCharacter = () => {
@@ -15,7 +15,8 @@ const LearnCharacter = () => {
       try {
           const prompt = `Create a Wikipedia-style breakdown of ${character?.name}. Do not write in a bulleted point fashion. 
           Write only in paragraphs. Make sure to have sections to the description including: a general breakdown,
-          history, powers, and personality. Make sure you title these sections as well.`;
+          history, powers, and personality. Make sure you title these sections as well. Also make sure to stay true to
+          the comic books in regards to detailing the character and not the MCU movies.`;
           const result = await generateText(prompt);
           setDescription(result);
 
@@ -40,7 +41,7 @@ const LearnCharacter = () => {
                 handleGenerateDescription(); // Generate if not in local storage
             }
         }
-    }, [character, character?.id, handleGenerateDescription]); //  Make sure to include character.id in the dependency array
+    }, [character, character?.id, handleGenerateDescription]);
 
     return (
         <div>

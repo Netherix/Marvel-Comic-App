@@ -1,14 +1,18 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../Button/Button";
-import './Search.css';
+import { fetchRandomCharacter } from "../../api/MarvelAPI/fetchCharacters"; // Import random fetch function
+import "./Search.css";
 
-const Search = ({ setSearchTerm, resetSearch, randomSearch }) => {
+const Search = ({ setSearchTerm, resetSearch }) => {
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchTerm(inputValue); // Trigger the passed submit function
+    if (inputValue.trim()) {
+      setSearchTerm(inputValue.trim());
+    }
   };
 
   const handleChange = (e) => {
@@ -20,32 +24,47 @@ const Search = ({ setSearchTerm, resetSearch, randomSearch }) => {
     resetSearch();
   };
 
+  const handleRandomSearch = async () => {
+    setIsLoading(true);
+    try {
+      const randomCharacter = await fetchRandomCharacter();
+      if (randomCharacter) {
+        setSearchTerm(randomCharacter.name);
+        setInputValue(randomCharacter.name); // Display in input field
+      }
+    } catch (error) {
+      console.error("Random search failed:", error);
+    }
+    setIsLoading(false);
+  };
+
   return (
-    <>
-      <div className="search-bar-container">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleChange}
-            placeholder="Enter character name!"
-            className="search-bar"
+    <div className="search-bar-container">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          placeholder="Enter character name!"
+          className="search-bar"
+        />
+        <div className="search-buttons">
+          <Button text="Get Character Data" onClick={handleSubmit} />
+          <Button text="Reset" onClick={handleReset} />
+          <Button 
+            text={isLoading ? "Loading..." : "Randomizer"} 
+            onClick={handleRandomSearch} 
+            disabled={isLoading}
           />
-          <div className="search-buttons">
-            <Button text="Get Character Data" />
-            <Button text="Reset" onClick={handleReset} />
-            <Button text="Randomizer" onClick={randomSearch} />
-          </div>
-        </form>
-      </div>
-    </>
+        </div>
+      </form>
+    </div>
   );
 };
 
 Search.propTypes = {
   setSearchTerm: PropTypes.func.isRequired,
   resetSearch: PropTypes.func.isRequired,
-  randomSearch: PropTypes.func.isRequired,
 };
 
 export default Search;
