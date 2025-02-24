@@ -1,13 +1,32 @@
+.character-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.character-image-container p {
+    color: yellow;
+    text-shadow: 2px 2px #ff0000;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    text-decoration: underline;
+}
+
+.character-image-container img {
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 .section-title {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 2rem;
     text-decoration: underline;
     font-size: 2rem;
 }
 
 .generated-description {
     padding: 20px;
-    margin-top: 20px;
+    margin-top: -2rem;
     color: yellow;
     text-shadow: 2px 2px #ff0000;
     letter-spacing: 2px;
@@ -25,8 +44,14 @@
     border: 2px solid #ffd700; 
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
-    max-width: 40rem;
+    max-width: 60rem;
     text-align: center;
     position: relative;
     margin: 0 auto;
+}
+
+.generate-description-button {
+    text-align: center;
+    margin-bottom: -2rem;
+    margin-top: 1rem;
 }
