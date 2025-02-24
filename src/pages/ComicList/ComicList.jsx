@@ -27,7 +27,11 @@ const ComicList = () => {
       setLoading(true);
       if (!character) return;
 
-      const result = await fetchComics(character.id, currentPage, comicsPerPage);
+      const result = await fetchComics(
+        character.id,
+        currentPage,
+        comicsPerPage
+      );
       setComics(result.comics);
       setTotalComics(result.totalComics);
       setError(result.error);
@@ -52,17 +56,10 @@ const ComicList = () => {
       {/* Title */}
       {!loading && !error && character && (
         <div className="title-wrapper">
-          <p className="comic-explore-title">Explore {character.name} Comics!</p>
+          <p className="comic-explore-title">
+            Explore {character.name} Comics!
+          </p>
         </div>
-      )}
-
-      {/* Pagination Controls */}
-      {!loading && !error && (
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
-        />
       )}
 
       {/* Comics List */}
@@ -73,7 +70,7 @@ const ComicList = () => {
               <li key={comic.id}>
                 <Link to={`/learn-comic/${comic.id}`} state={{ comic }}>
                   <div className="comic-card-inner">
-                    <LazyLoad offset={100}>
+                    <LazyLoad height={300} offset={100}>
                       <img
                         src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                         alt={comic.title}
@@ -90,6 +87,15 @@ const ComicList = () => {
             ))}
           </ul>
         </div>
+      )}
+
+      {/* Pagination Controls */}
+      {!loading && !error && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       )}
 
       {/* Footer */}

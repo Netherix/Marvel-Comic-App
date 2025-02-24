@@ -1,0 +1,27 @@
+.section-title {
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: underline;
+}
+
+.generated-description {
+    padding: 20px;
+    margin-top: 20px; 
+}
+
+.generated-description p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.description-text {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(to right, #ffdb4d, #ff9900);
+    border: 2px solid #ffd700; 
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
+    max-width: 40rem;
+    text-align: center;
+    position: relative;
+}

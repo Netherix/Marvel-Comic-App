@@ -9,16 +9,18 @@ const generateAuthParams = () => {
   return { ts: timestamp, apikey: publicKey, hash };
 };
 
-export const fetchCharacters = async (searchTerm) => {
+export const fetchCharacters = async (searchTerm, currentPage, charactersPerPage ) => {
   const { ts, apikey, hash } = generateAuthParams();
-  const url = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${apikey}&hash=${hash}&limit=10&nameStartsWith=${searchTerm}`;
+  const offset = (currentPage - 1) * charactersPerPage;
+  const url = `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${apikey}&hash=${hash}&limit=${charactersPerPage}&offset=${offset}&nameStartsWith=${searchTerm}`;
 
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const data = await response.json();
-    return data.data.results;
+    console.log(data);
+    return { characters: data.data.results, totalCharacters: data.data.total, error: null };
   } catch (error) {
     console.error("Error fetching Marvel characters:", error);
     throw error;

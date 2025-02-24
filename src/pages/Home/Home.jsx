@@ -1,31 +1,52 @@
 import { useState, useEffect } from "react";
-import { fetchCharacters, fetchRandomCharacter } from "../../api/MarvelAPI/fetchCharacters"; 
+import { fetchCharacters, fetchRandomCharacter } from "../../api/MarvelAPI/fetchCharacters";
 import Search from "../../components/Search/Search";
 import Nav from "../../components/Nav/Nav";
 import "./Home.css";
 import Footer from "../../components/Footer/Footer";
 import LazyLoad from "react-lazyload";
-import Popup from "../../components/Popup/Popup"; 
+import Popup from "../../components/Popup/Popup";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(null);
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [totalCharacters, setTotalCharacters] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1); // Start from page 1
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState({
+    randomSearch: false,
+    getCharacterData: false,
+  });
+
+  // Pagination variables
+  const charactersPerPage = 8;
+  const totalPages = Math.ceil(totalCharacters / charactersPerPage);
 
   useEffect(() => {
-    if (searchTerm) {
-      fetchCharacters(searchTerm)
-        .then(setCharacters)
-        .catch(() => setError("Failed to fetch characters. Please try again later."));
-    }
-  }, [searchTerm]);
+    const fetchData = async () => {
+      if (searchTerm) {
+        setIsLoading((prevState) => ({ ...prevState, getCharacterData: true }));
+
+        const result = await fetchCharacters(searchTerm, currentPage, charactersPerPage);
+
+        setCharacters(result.characters);
+        setTotalCharacters(result.totalCharacters);
+        setError(result.error);
+        setIsLoading((prevState) => ({ ...prevState, getCharacterData: false }));
+      }
+    };
+
+    fetchData();
+  }, [searchTerm, currentPage]); // Ensure pagination works
 
   const handleReset = () => {
     setSearchTerm("");
     setCharacters([]);
     setError(null);
+    setCurrentPage(1); // Reset pagination when clearing search
   };
 
   const handleCharacterClick = (character) => {
@@ -37,6 +58,21 @@ const Home = () => {
     setIsPopupVisible(false);
   };
 
+  const handleRandomSearch = async () => {
+    setIsLoading((prevState) => ({ ...prevState, randomSearch: true }));
+    try {
+      const randomCharacter = await fetchRandomCharacter();
+      if (randomCharacter) {
+        setSearchTerm(randomCharacter.name); // Update searchTerm with random character name
+        setCurrentPage(1); // Reset to first page when doing a random search
+      }
+    } catch (error) {
+      console.error("Random search failed:", error);
+      setError("Failed to fetch random character. Please try again later.");
+    }
+    setIsLoading((prevState) => ({ ...prevState, randomSearch: false }));
+  };
+
   return (
     <>
       <Nav />
@@ -45,13 +81,13 @@ const Home = () => {
         <p>Get Searching, Bub!</p>
       </div>
 
-      <span>
-        <Search 
-          setSearchTerm={setSearchTerm} 
-          resetSearch={handleReset} 
-          randomSearch={() => fetchRandomCharacter().then(setCharacters).catch(() => setError("Failed to fetch a random character."))} 
-        />
-      </span>
+      <Search
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        resetSearch={handleReset}
+        handleRandomSearch={handleRandomSearch}
+        isLoading={isLoading}
+      />
 
       {error && <p className="error-message">{error}</p>}
 
@@ -62,7 +98,7 @@ const Home = () => {
               <li key={character.id}>
                 <div onClick={() => handleCharacterClick(character)}>
                   <div className="character-card-inner">
-                    <LazyLoad offset={100}>
+                    <LazyLoad height={300} offset={100}>
                       <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
                       <p>{character.name}</p>
                     </LazyLoad>
@@ -74,11 +110,20 @@ const Home = () => {
         </div>
       )}
 
+      {/* Pagination Controls */}
+      {characters.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
+      )}
+
       {isPopupVisible && (
-        <Popup 
-          characterName={selectedCharacter.name} 
+        <Popup
+          characterName={selectedCharacter.name}
           onClose={closePopup}
-          characterId={selectedCharacter.id} 
+          characterId={selectedCharacter.id}
           character={selectedCharacter}
         />
       )}
