@@ -2,11 +2,15 @@
     text-align: center;
     margin-top: 10px;
     text-decoration: underline;
+    font-size: 2rem;
 }
 
 .generated-description {
     padding: 20px;
-    margin-top: 20px; 
+    margin-top: 20px;
+    color: yellow;
+    text-shadow: 2px 2px #ff0000;
+    letter-spacing: 2px;
 }
 
 .generated-description p {
@@ -24,4 +28,5 @@
     max-width: 40rem;
     text-align: center;
     position: relative;
+    margin: 0 auto;
 }

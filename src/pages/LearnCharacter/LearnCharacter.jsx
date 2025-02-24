@@ -19,7 +19,7 @@ const LearnCharacter = () => {
             history, powers, and personality. Make sure you title these sections as well. Also make sure to stay true to 
             the Marvel comic books in regards to detailing the character and not the MCU movies. Please don't use any special characters 
             like * or # within the description. Please also refrain from using the character name itself as an individual title.
-            Also make sure to make the history section extra long. Don't be afraid to make the history section multiple paragraphs.`;
+            Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
 
             const result = await generateText(prompt);
 
