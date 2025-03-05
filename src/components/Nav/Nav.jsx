@@ -28,11 +28,10 @@ function Nav() {
         <div className="popup-menu">
           <div className="popup-close" onClick={toggleMenu}>×</div>
           <ul className="popup-links">
-            <li onClick={() => navigate('/')}>Home</li>
-            <li onClick={() => navigate('/')}>Shop Now</li>
-            <li onClick={() => navigate('/')}>Contact Us</li>
-            <li onClick={() => navigate('/')}>Track Your Order</li>
-            <li onClick={() => navigate('/')}>About</li>
+            <li onClick={() => navigate('/')}>Home/Explore</li>
+            <li onClick={() => navigate('/')}>Favorite Comics</li>
+            <li onClick={() => navigate('/')}>Favorite Characters</li>
+            <li onClick={() => navigate('/')}>TBA</li>
             <li onClick={toggleMenu}>Close</li>
           </ul>
         </div>

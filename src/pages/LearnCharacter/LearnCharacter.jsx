@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { generateText } from "../../api/GeminiAPI/fetchText";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
-import Button from '../../components/Button/Button'
-import Footer from '../../components/Footer/Footer'
+import Button from "../../components/Button/Button";
+import Footer from "../../components/Footer/Footer";
 import "./LearnCharacter.css";
 
 const LearnCharacter = () => {
@@ -12,17 +12,21 @@ const LearnCharacter = () => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(character)
+
+  const navigate = useNavigate();
+
   const handleGenerateDescription = useCallback(async () => {
     setIsLoading(true);
     setDescription("");
 
     try {
       const prompt = `Create a Wikipedia-style breakdown of ${character?.name}. Do not write in a bulleted point fashion. 
-            Write only in paragraphs. Make sure to have sections to the description including: a general breakdown, 
-            history, powers, and personality. Make sure you title these sections as well. Also make sure to stay true to 
-            the Marvel comic books in regards to detailing the character and not the MCU movies. Please don't use any special characters 
-            like * or # within the description. Please also refrain from using the character name itself as an individual title.
-            Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
+        Write only in paragraphs. Make sure to have sections to the description including: a general breakdown, 
+        history, powers, and personality. Make sure you title these sections as well. Also make sure to stay true to 
+        the Marvel comic books in regards to detailing the character and not the MCU movies. Please don't use any special characters 
+        like * or # within the description. Please also refrain from using the character name itself as an individual title.
+        Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
 
       const result = await generateText(prompt);
 
@@ -61,12 +65,24 @@ const LearnCharacter = () => {
     <>
       <Nav />
 
-      <div className="character-image-container">
-        <p>Delve deep into the lore of {character.name}!</p>
-        <img 
-          src={`${character.thumbnail.path}.${character.thumbnail.extension}`} 
-          alt={character.name} 
-        />
+      <div className="character-title-container">
+          <p>Delve deep into the lore of {character?.name}!</p>
+        <div className="title-image-container">
+          <img
+            src={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
+            alt={character?.name}
+          />
+          <div className="title-buttons-container">
+            <Button 
+              text="Add To Favorites"
+              
+            />
+            <Button 
+              text="Explore Comics" 
+              onClick={() => navigate(`/comics/${character.id}`, { state: { character } })}
+            />
+          </div>
+        </div>
       </div>
 
       {description && (
@@ -78,6 +94,7 @@ const LearnCharacter = () => {
               trimmedParagraph === "general breakdown" ||
               trimmedParagraph === "history" ||
               trimmedParagraph === "powers" ||
+              trimmedParagraph === "powers and abilities" ||
               trimmedParagraph === "personality"
             ) {
               return (
@@ -92,18 +109,18 @@ const LearnCharacter = () => {
                 </p>
               );
             } else {
-              return null; // Exclude empty paragraphs
+              return null;
             }
           })}
         </div>
       )}
 
       <div className="generate-description-button">
-      <Button
-        text={isLoading ? "Generating..." : "Generate New Description"}
-        onClick={handleGenerateDescription}
-        disabled={isLoading} 
-      />
+        <Button
+          text={isLoading ? "Generating..." : "Generate New Description"}
+          onClick={handleGenerateDescription}
+          disabled={isLoading}
+        />
       </div>
 
       {!description && isLoading && <p>Generating description...</p>}
