@@ -7,14 +7,12 @@ import Footer from "../../components/Footer/Footer";
 import "./LearnCharacter.css";
 
 const LearnCharacter = () => {
-  const location = useLocation();
-  const { character } = location.state || {};
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(character)
-
+  const location = useLocation();
   const navigate = useNavigate();
+  const { character } = location.state || {};
 
   const handleGenerateDescription = useCallback(async () => {
     setIsLoading(true);
@@ -29,9 +27,7 @@ const LearnCharacter = () => {
         Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
 
       const result = await generateText(prompt);
-
       const cleanedDescription = result.replace(/[*#:]/g, "");
-
       setDescription(cleanedDescription);
 
       if (character && character.id) {
@@ -74,8 +70,7 @@ const LearnCharacter = () => {
           />
           <div className="title-buttons-container">
             <Button 
-              text="Add To Favorites"
-              
+              text="Add To Favorites"           
             />
             <Button 
               text="Explore Comics" 
@@ -92,6 +87,7 @@ const LearnCharacter = () => {
 
             if (
               trimmedParagraph === "general breakdown" ||
+              trimmedParagraph === "general description" ||
               trimmedParagraph === "history" ||
               trimmedParagraph === "powers" ||
               trimmedParagraph === "powers and abilities" ||
@@ -102,7 +98,7 @@ const LearnCharacter = () => {
                   {paragraph}
                 </p>
               );
-            } else if (paragraph.trim() !== "") {
+            } else if (trimmedParagraph !== "") {
               return (
                 <p key={index} className="description-text">
                   {paragraph}
@@ -117,13 +113,12 @@ const LearnCharacter = () => {
 
       <div className="generate-description-button">
         <Button
-          text={isLoading ? "Generating..." : "Generate New Description"}
+          text={isLoading ? "Loading New Description..." : "Generate New Description"}
           onClick={handleGenerateDescription}
           disabled={isLoading}
         />
       </div>
 
-      {!description && isLoading && <p>Generating description...</p>}
       {!description && !isLoading && (
         <p>Click the button to generate a character description.</p>
       )}

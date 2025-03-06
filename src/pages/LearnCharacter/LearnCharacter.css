@@ -91,3 +91,10 @@
     margin-bottom: -2rem;
     margin-top: 1rem;
 }
+
+.loading-text {
+    text-align: center;
+    color: yellow;
+    text-shadow: 2px 2px #ff0000;
+    letter-spacing: 2px;
+}
