@@ -13,12 +13,14 @@ const ComicList = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalComics, setTotalComics] = useState(0);
+  const [favoriteComics, setFavoriteComics] = useState([]);
+  const [favoriteStatus, setFavoriteStatus] = useState({});
 
-  // Get character object from state
+  console.log(favoriteComics)
+
   const location = useLocation();
   const { character } = location.state || {};
 
-  // Pagination variables
   const comicsPerPage = 8;
   const totalPages = Math.ceil(totalComics / comicsPerPage);
 
@@ -41,28 +43,53 @@ const ComicList = () => {
     getComics();
   }, [character, currentPage]);
 
+  useEffect(() => {
+    // Load favorite status from localStorage when the component mounts
+    const savedFavoriteStatus = localStorage.getItem("favoriteStatus");
+    if (savedFavoriteStatus) {
+      setFavoriteStatus(JSON.parse(savedFavoriteStatus));
+    }
+  }, []);
+
+  const toggleFavorite = (comic) => {
+    // Toggle the favorite status of the comic
+    const updatedFavoriteStatus = {
+      ...favoriteStatus,
+      [comic.id]: !favoriteStatus[comic.id],
+    };
+    setFavoriteStatus(updatedFavoriteStatus);
+    localStorage.setItem("favoriteStatus", JSON.stringify(updatedFavoriteStatus));
+
+    // Update the favorite comics list
+    let updatedFavoriteComics;
+    if (!favoriteStatus[comic.id]) {
+      updatedFavoriteComics = [...favoriteComics, comic];
+    } else {
+      updatedFavoriteComics = favoriteComics.filter((favComic) => favComic.id !== comic.id);
+    }
+    setFavoriteComics(updatedFavoriteComics);
+    localStorage.setItem("favoriteComics", JSON.stringify(updatedFavoriteComics));
+  };
+
   return (
     <>
-      {/* Navbar */}
-      <Nav />
-
-      {/* Loading/Error States */}
+      {/* LEFT OFF HERE */}
+      <Nav /> 
+      
       {loading && <p className="pre-load-text">Loading comics...</p>}
       {error && <p className="error-message">{error}</p>}
       {!loading && !error && comics.length === 0 && (
         <p className="pre-load-text">No comics available for this character.</p>
       )}
 
-      {/* Title */}
       {!loading && !error && character && (
         <div className="title-wrapper">
           <p className="comic-explore-title">
-            Explore {character.name} Comics!
+            Explore comics that {character.name} appears in!
           </p>
         </div>
       )}
 
-      {/* Comics List */}
       {!loading && !error && comics.length > 0 && (
         <div className="comic-card-section">
           <ul className="comic-card-container">
@@ -75,6 +102,24 @@ const ComicList = () => {
                         src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                         alt={comic.title}
                       />
+                      {/* Favorites button */}
+                      <div
+                        className="heart-button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          toggleFavorite(comic);
+                        }}
+                      >
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill={favoriteStatus[comic.id] ? "red" : "grey"}
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                      </div>
                       <p>
                         {comic.title.length > 30
                           ? `${comic.title.substring(0, 30)}...`
@@ -89,7 +134,6 @@ const ComicList = () => {
         </div>
       )}
 
-      {/* Pagination Controls */}
       {!loading && !error && (
         <Pagination
           currentPage={currentPage}
@@ -97,8 +141,6 @@ const ComicList = () => {
           totalPages={totalPages}
         />
       )}
-
-      {/* Footer */}
       <Footer />
     </>
   );
