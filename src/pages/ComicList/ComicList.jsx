@@ -16,8 +16,6 @@ const ComicList = () => {
   const [favoriteComics, setFavoriteComics] = useState([]);
   const [favoriteStatus, setFavoriteStatus] = useState({});
 
-  console.log(favoriteComics)
-
   const location = useLocation();
   const { character } = location.state || {};
 
@@ -49,7 +47,13 @@ const ComicList = () => {
     if (savedFavoriteStatus) {
       setFavoriteStatus(JSON.parse(savedFavoriteStatus));
     }
-  }, []);
+
+    // Load favorite comics from localStorage
+    const savedFavoriteComics = localStorage.getItem("favoriteComics");
+    if (savedFavoriteComics) {
+      setFavoriteComics(JSON.parse(savedFavoriteComics));
+    }
+  }, []); // Empty dependency array means this will only run once when the component mounts
 
   const toggleFavorite = (comic) => {
     // Toggle the favorite status of the comic
@@ -73,9 +77,8 @@ const ComicList = () => {
 
   return (
     <>
-      {/* LEFT OFF HERE */}
-      <Nav /> 
-      
+      <Nav />
+
       {loading && <p className="pre-load-text">Loading comics...</p>}
       {error && <p className="error-message">{error}</p>}
       {!loading && !error && comics.length === 0 && (

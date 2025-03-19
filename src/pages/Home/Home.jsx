@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { fetchCharacters, fetchRandomCharacter } from "../../api/MarvelAPI/fetchCharacters";
+import {
+  fetchCharacters,
+  fetchRandomCharacter,
+} from "../../api/MarvelAPI/fetchCharacters";
 import Search from "../../components/Search/Search";
 import Nav from "../../components/Nav/Nav";
 import "./Home.css";
@@ -30,12 +33,19 @@ const Home = () => {
       if (searchTerm) {
         setIsLoading((prevState) => ({ ...prevState, getCharacterData: true }));
 
-        const result = await fetchCharacters(searchTerm, currentPage, charactersPerPage);
+        const result = await fetchCharacters(
+          searchTerm,
+          currentPage,
+          charactersPerPage
+        );
 
         setCharacters(result.characters);
         setTotalCharacters(result.totalCharacters);
         setError(result.error);
-        setIsLoading((prevState) => ({ ...prevState, getCharacterData: false }));
+        setIsLoading((prevState) => ({
+          ...prevState,
+          getCharacterData: false,
+        }));
       }
     };
 
@@ -77,7 +87,11 @@ const Home = () => {
     <>
       <Nav />
       <div className="wolverine-container">
-        <img src="src/assets/wolverine.png" style={{ height: "300px", width: "300px" }} alt="Wolverine" />
+        <img
+          src="src/assets/wolverine.png"
+          style={{ height: "300px", width: "300px" }}
+          alt="Wolverine"
+        />
         <p>Get Searching, Bub!</p>
       </div>
 
@@ -99,7 +113,10 @@ const Home = () => {
                 <div onClick={() => handleCharacterClick(character)}>
                   <div className="character-card-inner">
                     <LazyLoad height={300} offset={100}>
-                      <img src={`${character.thumbnail.path}.${character.thumbnail.extension}`} alt={character.name} />
+                      <img
+                        src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                        alt={character.name}
+                      />
                       <p>{character.name}</p>
                     </LazyLoad>
                   </div>
@@ -111,7 +128,7 @@ const Home = () => {
       )}
 
       {/* Pagination Controls */}
-      {characters.length > 0 && (
+      {totalCharacters > charactersPerPage && (
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

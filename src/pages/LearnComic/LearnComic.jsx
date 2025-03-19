@@ -4,6 +4,7 @@ import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
 
 const LearnComic = () => {
+  
   const location = useLocation();
   const { comic } = location.state || {};
 

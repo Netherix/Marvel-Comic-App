@@ -3,6 +3,7 @@ import Home from './pages/Home/Home';
 import ComicList from './pages/ComicList/ComicList';
 import LearnComic from './pages/LearnComic/LearnComic';
 import LearnCharacter from './pages/LearnCharacter/LearnCharacter';
+import FavComics from './pages/FavComics/FavComics'
 import './App.css'
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Route path='/comics/:characterId' element={<ComicList />} />
         <Route path='/learn-comic/:comicId' element={<LearnComic />} />
         <Route path='/learn-character/:characterId' element={<LearnCharacter />} />
+        <Route path='/favorite-comics' element={<FavComics />} />
       </Routes>
     </BrowserRouter>
   );
