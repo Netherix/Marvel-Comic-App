@@ -9,10 +9,29 @@ import "./LearnCharacter.css";
 const LearnCharacter = () => {
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [favoriteCharacters, setFavoriteCharacters] = useState(() => 
+    JSON.parse(localStorage.getItem("favoriteCharacters")) || []
+  );
+
+  console.log(favoriteCharacters)
 
   const location = useLocation();
   const navigate = useNavigate();
   const { character } = location.state || {};
+
+  const toggleFavorite = () => {
+    if (!character) return;
+
+    let updatedFavorites;
+    if (favoriteCharacters.some(fav => fav.id === character.id)) {
+      updatedFavorites = favoriteCharacters.filter(fav => fav.id !== character.id);
+    } else {
+      updatedFavorites = [...favoriteCharacters, character];
+    }
+
+    setFavoriteCharacters(updatedFavorites);
+    localStorage.setItem("favoriteCharacters", JSON.stringify(updatedFavorites));
+  };
 
   const handleGenerateDescription = useCallback(async () => {
     setIsLoading(true);
@@ -23,8 +42,7 @@ const LearnCharacter = () => {
         Write only in paragraphs. Make sure to have sections to the description including: a general breakdown, 
         history, powers, and personality. Make sure you title these sections as well. Also make sure to stay true to 
         the Marvel comic books in regards to detailing the character and not the MCU movies. Please don't use any special characters 
-        like * or # within the description. Please also refrain from using the character name itself as an individual title.
-        Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
+        like * or # within the description.Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
 
       const result = await generateText(prompt);
       const cleanedDescription = result.replace(/[*#:]/g, "");
@@ -62,7 +80,7 @@ const LearnCharacter = () => {
       <Nav />
 
       <div className="character-title-container">
-          <p>Delve deep into the lore of {character?.name}!</p>
+        <p>Delve deep into the lore of {character?.name}!</p>
         <div className="title-image-container">
           <img
             src={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
@@ -70,7 +88,8 @@ const LearnCharacter = () => {
           />
           <div className="title-buttons-container">
             <Button 
-              text="Add To Favorites"           
+              text={favoriteCharacters.some(fav => fav.id === character?.id) ? "Remove From Favorites" : "Add To Favorites"} 
+              onClick={toggleFavorite}           
             />
             <Button 
               text="Explore Comics" 
@@ -85,14 +104,7 @@ const LearnCharacter = () => {
           {description.split("\n").map((paragraph, index) => {
             const trimmedParagraph = paragraph.trim().toLowerCase();
 
-            if (
-              trimmedParagraph === "general breakdown" ||
-              trimmedParagraph === "general description" ||
-              trimmedParagraph === "history" ||
-              trimmedParagraph === "powers" ||
-              trimmedParagraph === "powers and abilities" ||
-              trimmedParagraph === "personality"
-            ) {
+            if (["general breakdown", "general description", "history", "powers", "powers and abilities", "personality"].includes(trimmedParagraph)) {
               return (
                 <p key={index} className="section-title">
                   {paragraph}

@@ -1,14 +1,16 @@
 .comic-explore-title {
+    max-width: 90%; /* Prevents it from touching the edges */
     font-size: 2rem;
     color: yellow;
     text-shadow: 2px 2px #ff0000;
     text-align: center;
     text-decoration: underline;
     background-color: rgb(247, 150, 5);
-    padding: 1rem;
-    margin: 0;
+    padding: 0.5rem 1rem;
+    margin: 0 auto;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
+    text-align: center;
 }
 
 .title-wrapper {

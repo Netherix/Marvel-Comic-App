@@ -3,37 +3,59 @@ import { useEffect, useState } from "react";
 import LazyLoad from "react-lazyload";
 import Nav from "../../components/Nav/Nav";
 import Footer from "../../components/Footer/Footer";
+import FavPopup from "../../components/FavPopup/FavPopup";
+import Pagination from "../../components/Pagination/Pagination";
 
 const FavComics = () => {
   const [favoriteComics, setFavoriteComics] = useState([]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [selectedComicId, setSelectedComicId] = useState(null);
+  const [selectedComicTitle, setSelectedComicTitle] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalComics, setTotalComics] = useState(0);
+
+  // pagination variables
+  const comicsPerPage = 8;
+  const totalPages = Math.ceil(totalComics / comicsPerPage);
 
   useEffect(() => {
     const savedFavoriteComics = localStorage.getItem("favoriteComics");
     if (savedFavoriteComics) {
-      setFavoriteComics(JSON.parse(savedFavoriteComics));
+      const updatedFavoriteComics = JSON.parse(savedFavoriteComics);
+      setFavoriteComics(updatedFavoriteComics);
+      setTotalComics(updatedFavoriteComics.length);
     }
   }, []);
 
   const removeFavorite = (comicId) => {
-    // Remove comic from favorites
     const updatedFavoriteComics = favoriteComics.filter(
       (comic) => comic.id !== comicId
     );
     setFavoriteComics(updatedFavoriteComics);
+    setTotalComics(updatedFavoriteComics.length);
     localStorage.setItem(
       "favoriteComics",
       JSON.stringify(updatedFavoriteComics)
     );
+    setIsPopupVisible(false);
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
+  const openPopup = (comicId, comicTitle) => {
+    setIsPopupVisible(true);
+    setSelectedComicId(comicId);
+    setSelectedComicTitle(comicTitle);
   };
 
   return (
     <>
       <Nav />
       <div className="title-wrapper">
-          <p className="comic-explore-title">
-            Your Favorite Comics!
-          </p>
-        </div>
+        <p className="comic-explore-title">Your Favorite Comics!</p>
+      </div>
 
       {/* comic-card-section */}
       {favoriteComics.length > 0 ? (
@@ -51,7 +73,7 @@ const FavComics = () => {
                       {/* Heart Button to remove favorite */}
                       <div
                         className="heart-button"
-                        onClick={() => removeFavorite(comic.id)}
+                        onClick={() => openPopup(comic.id, comic.title)}
                       >
                         <svg
                           width="24"
@@ -83,6 +105,23 @@ const FavComics = () => {
         <p>{favoriteComics.length === 0 ? "No favorite comics yet!" : null}</p>
       )}
 
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+
+      {/* popup window */}
+      {isPopupVisible && (
+        <FavPopup
+          onClose={closePopup}
+          removeFavorite={() => removeFavorite(selectedComicId)}
+          comicTitle={selectedComicTitle}
+        />
+      )}
+
       <Footer />
     </>
   );
@@ -91,6 +130,5 @@ const FavComics = () => {
 export default FavComics;
 
 // TO DO:
-// pop window asking to remove favorite
 // pagination (only showing up if more than 8)
 // links to individual comics

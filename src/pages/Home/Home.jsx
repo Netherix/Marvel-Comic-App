@@ -128,7 +128,7 @@ const Home = () => {
       )}
 
       {/* Pagination Controls */}
-      {totalCharacters > charactersPerPage && (
+      {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

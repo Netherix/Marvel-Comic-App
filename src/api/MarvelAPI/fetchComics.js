@@ -6,7 +6,7 @@ const fetchComics = async (characterId, currentPage, comicsPerPage) => {
   const timestamp = Date.now();
   const hash = md5(timestamp + privateKey + publicKey);
   const offset = (currentPage - 1) * comicsPerPage;
-  const url = `http://gateway.marvel.com/v1/public/comics?characters=${characterId}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${comicsPerPage}&offset=${offset}`;
+  const url = `https://gateway.marvel.com/v1/public/comics?characters=${characterId}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=${comicsPerPage}&offset=${offset}`;
 
   try {
     const response = await fetch(url);

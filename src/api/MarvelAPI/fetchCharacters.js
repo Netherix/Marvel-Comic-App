@@ -6,6 +6,7 @@ const privateKey = import.meta.env.VITE_PRIVATE_KEY;
 const generateAuthParams = () => {
   const timestamp = Date.now();
   const hash = md5(timestamp + privateKey + publicKey);
+  console.log(hash)
   return { ts: timestamp, apikey: publicKey, hash };
 };
 

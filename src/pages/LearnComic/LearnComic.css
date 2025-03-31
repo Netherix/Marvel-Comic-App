@@ -26,12 +26,13 @@
 }
 
 .separator-line {
-    width: 109.8%;
+    width: calc(104% + 15px); /* Expands the line beyond the container borders */
     height: 6px;
     background-color: yellow;
     border: none;
-    margin: 1rem 0; 
+    margin: 1rem 0;
     margin-bottom: 2rem;
+    position: relative;
 }
 
 .title-series-container {
