@@ -17,6 +17,9 @@ const FavComics = () => {
   // pagination variables
   const comicsPerPage = 8;
   const totalPages = Math.ceil(totalComics / comicsPerPage);
+  const startIndex = (currentPage - 1) * comicsPerPage;
+  const endIndex = startIndex + comicsPerPage;
+  const comicsToDisplay = favoriteComics.slice(startIndex, endIndex);
 
   useEffect(() => {
     const savedFavoriteComics = localStorage.getItem("favoriteComics");
@@ -61,8 +64,8 @@ const FavComics = () => {
       {favoriteComics.length > 0 ? (
         <div className="comic-card-section">
           <ul className="comic-card-container">
-            {favoriteComics.length > 0 ? (
-              favoriteComics.map((comic) => (
+            {comicsToDisplay.length > 0 ? (
+              comicsToDisplay.map((comic) => (
                 <li key={comic.id}>
                   <div className="comic-card-inner">
                     <LazyLoad height={300} offset={100}>

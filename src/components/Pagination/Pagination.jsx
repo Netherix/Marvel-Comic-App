@@ -18,11 +18,8 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
   const handlePageChange = (event) => {
     const value = event.target.value;
     setInputPage(value);
-
     const pageNumber = Number(value);
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
+    setCurrentPage(pageNumber);
   };
 
   return (
