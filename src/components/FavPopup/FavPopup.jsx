@@ -1,7 +1,7 @@
 import Button from "../Button/Button";
 import PropTypes from "prop-types";
 
-const FavPopup = ({ onClose, removeFavorite, comicTitle }) => {
+const FavPopup = ({ onClose, removeFavorite, comicTitle, isRemoveAll }) => {
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("popup-overlay")) {
       onClose();
@@ -16,11 +16,18 @@ const FavPopup = ({ onClose, removeFavorite, comicTitle }) => {
           <button className="popup-close-btn" onClick={onClose}>
             X
           </button>
+
           <p className="popup-title">
-            Are you sure you want to remove <u>{comicTitle}</u> from your favorites?
+            {isRemoveAll
+              ? "Are you sure you want to remove all your favorite comics?"
+              : `Are you sure you want to remove <u>${comicTitle}</u> from your favorites?`}
           </p>
+
           <div className="popup-buttons">
-						<Button text="Confirm" onClick={removeFavorite} />
+            <Button
+              text="Confirm"
+              onClick={isRemoveAll ? removeFavorite : () => removeFavorite()}
+            />
             <Button text="Close" onClick={onClose} />
           </div>
         </div>
@@ -30,11 +37,10 @@ const FavPopup = ({ onClose, removeFavorite, comicTitle }) => {
 };
 
 FavPopup.propTypes = {
-	onClose: PropTypes.func.isRequired,
-	removeFavorite: PropTypes.func.isRequired,
-	comicTitle: PropTypes.string.isRequired
+  onClose: PropTypes.func.isRequired,
+  removeFavorite: PropTypes.func.isRequired,
+  comicTitle: PropTypes.string,
+  isRemoveAll: PropTypes.bool.isRequired, // Add this new prop
 };
 
 export default FavPopup;
-
-
