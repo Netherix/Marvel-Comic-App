@@ -1,0 +1,22 @@
+/* favorites confirmation text */
+.favorite-message {
+    background-color: #ff0000;
+    font-size: 4rem;
+    color: yellow;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: fit-content; /* Keeps the box size to fit the content */
+    animation: shake 0.5s ease-in-out;
+    margin-top: 2rem;
+  }
+  
+  
+  @keyframes shake {
+    0% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+  }
+  

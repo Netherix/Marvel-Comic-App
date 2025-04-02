@@ -10,11 +10,12 @@ import Footer from "../../components/Footer/Footer";
 import LazyLoad from "react-lazyload";
 import Popup from "../../components/Popup/Popup";
 import Pagination from "../../components/Pagination/Pagination";
+import FavoriteNotifier from "../../components/FavoriteNotifier/FavoriteNotifier";
 
 const Home = () => {
   const [characters, setCharacters] = useState([]);
   const [totalCharacters, setTotalCharacters] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1); // Start from page 1
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -23,8 +24,12 @@ const Home = () => {
     randomSearch: false,
     getCharacterData: false,
   });
+  const [favoriteCharacters, setFavoriteCharacters] = useState(
+    () => JSON.parse(localStorage.getItem("favoriteCharacters")) || []
+  );
+  const [favoriteMessage, setFavoriteMessage] = useState("");
+  const [isMessageVisible, setIsMessageVisible] = useState(false);
 
-  // Pagination variables
   const charactersPerPage = 8;
   const totalPages = Math.ceil(totalCharacters / charactersPerPage);
 
@@ -32,13 +37,11 @@ const Home = () => {
     const fetchData = async () => {
       if (searchTerm) {
         setIsLoading((prevState) => ({ ...prevState, getCharacterData: true }));
-
         const result = await fetchCharacters(
           searchTerm,
           currentPage,
           charactersPerPage
         );
-
         setCharacters(result.characters);
         setTotalCharacters(result.totalCharacters);
         setError(result.error);
@@ -48,15 +51,14 @@ const Home = () => {
         }));
       }
     };
-
     fetchData();
-  }, [searchTerm, currentPage]); // Ensure pagination works
+  }, [searchTerm, currentPage]);
 
   const handleReset = () => {
     setSearchTerm("");
     setCharacters([]);
     setError(null);
-    setCurrentPage(1); // Reset pagination when clearing search
+    setCurrentPage(1);
   };
 
   const handleCharacterClick = (character) => {
@@ -73,14 +75,34 @@ const Home = () => {
     try {
       const randomCharacter = await fetchRandomCharacter();
       if (randomCharacter) {
-        setSearchTerm(randomCharacter.name); // Update searchTerm with random character name
-        setCurrentPage(1); // Reset to first page when doing a random search
+        setSearchTerm(randomCharacter.name);
+        setCurrentPage(1);
       }
     } catch (error) {
       console.error("Random search failed:", error);
       setError("Failed to fetch random character. Please try again later.");
     }
     setIsLoading((prevState) => ({ ...prevState, randomSearch: false }));
+  };
+
+  const toggleFavorite = (character) => {
+    const updatedFavorites = favoriteCharacters.some(
+      (fav) => fav.id === character.id
+    )
+      ? favoriteCharacters.filter((fav) => fav.id !== character.id)
+      : [...favoriteCharacters, character];
+
+    setFavoriteCharacters(updatedFavorites);
+    localStorage.setItem(
+      "favoriteCharacters",
+      JSON.stringify(updatedFavorites)
+    );
+
+    const message = updatedFavorites.some((fav) => fav.id === character.id)
+      ? `${character.name} added to favorites!`
+      : `${character.name} removed from favorites!`;
+    setFavoriteMessage(message);
+    setIsMessageVisible(true);
   };
 
   return (
@@ -105,6 +127,12 @@ const Home = () => {
 
       {error && <p className="error-message">{error}</p>}
 
+      <FavoriteNotifier
+        message={favoriteMessage}
+        isVisible={isMessageVisible}
+        onHide={() => setIsMessageVisible(false)}
+      />
+
       {characters.length > 0 && (
         <div className="character-card-section">
           <ul className="character-card-container">
@@ -119,6 +147,30 @@ const Home = () => {
                       />
                       <p>{character.name}</p>
                     </LazyLoad>
+                    <div
+                      className="heart-button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleFavorite(character);
+                      }}
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill={
+                          favoriteCharacters.some(
+                            (fav) => fav.id === character.id
+                          )
+                            ? "red"
+                            : "grey"
+                        }
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -127,7 +179,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Pagination Controls */}
       {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}

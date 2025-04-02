@@ -97,3 +97,26 @@
   font-weight: bold;
   letter-spacing: 0.2rem;
 }
+
+/* heart stylings */
+.heart-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background-color: white;
+  border-radius: 50%;
+  padding: .2rem;
+  transition: transform 0.3s ease;
+}
+
+.heart-button:hover {
+  transform: scale(1.1);
+}
+
+.heart-button:hover svg {
+  fill: red;
+}
+
