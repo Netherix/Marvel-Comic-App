@@ -2,7 +2,8 @@
     background-color: rgb(247, 150, 5);
     padding-bottom: 1rem;
     width: 100%; /* Make sure the footer takes the full width */
-    margin-top: 5rem;
+    margin-top: 6.2rem;
+    height: 18rem;
   }
 
 .footer-container p {
@@ -15,7 +16,6 @@
     text-decoration: underline;
     color: yellow;
     font-size: 1.5rem;
-
 }
 
 .footer-container a:hover {
