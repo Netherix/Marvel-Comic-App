@@ -1,4 +1,4 @@
-import "./FavComics.css";
+import "./FavCharacters.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
@@ -9,76 +9,76 @@ import Pagination from "../../components/Pagination/Pagination";
 import Button from "../../components/Button/Button";
 import FavoriteNotifier from "../../components/FavoriteNotifier/FavoriteNotifier"; // Import FavoriteNotifier
 
-const FavComics = () => {
-  const [favoriteComics, setFavoriteComics] = useState([]);
+const FavCharacters = () => {
+  const [favoriteCharacters, setFavoriteCharacters] = useState([]);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [selectedComicId, setSelectedComicId] = useState(null);
-  const [selectedComicTitle, setSelectedComicTitle] = useState(null);
+  const [selectedCharacterId, setSelectedCharacterId] = useState(null);
+  const [selectedCharacterName, setSelectedCharacterName] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalComics, setTotalComics] = useState(0);
-  const [isRemoveAllPopup, setIsRemoveAllPopup] = useState(false); // New state for remove all popup
+  const [totalCharacters, setTotalCharacters] = useState(0);
+  const [isRemoveAllPopup, setIsRemoveAllPopup] = useState(false);
   const [notification, setNotification] = useState({
     message: "",
     isVisible: false,
   });
 
-  // pagination variables
-  const comicsPerPage = 8;
-  const totalPages = Math.ceil(totalComics / comicsPerPage);
-  const startIndex = (currentPage - 1) * comicsPerPage;
-  const endIndex = startIndex + comicsPerPage;
-  const comicsToDisplay = favoriteComics.slice(startIndex, endIndex);
+  // Pagination variables
+  const charactersPerPage = 8;
+  const totalPages = Math.ceil(totalCharacters / charactersPerPage);
+  const startIndex = (currentPage - 1) * charactersPerPage;
+  const endIndex = startIndex + charactersPerPage;
+  const charactersToDisplay = favoriteCharacters.slice(startIndex, endIndex);
 
   useEffect(() => {
-    const savedFavoriteComics = localStorage.getItem("favoriteComics");
-    if (savedFavoriteComics) {
-      const updatedFavoriteComics = JSON.parse(savedFavoriteComics);
-      setFavoriteComics(updatedFavoriteComics);
-      setTotalComics(updatedFavoriteComics.length);
+    const savedFavoriteCharacters = localStorage.getItem("favoriteCharacters");
+    if (savedFavoriteCharacters) {
+      const updatedFavoriteCharacters = JSON.parse(savedFavoriteCharacters);
+      setFavoriteCharacters(updatedFavoriteCharacters);
+      setTotalCharacters(updatedFavoriteCharacters.length);
     }
   }, []);
 
-  const removeFavorite = (comicId, comicTitle) => {
-    const updatedFavoriteComics = favoriteComics.filter(
-      (comic) => comic.id !== comicId
+  const removeFavorite = (characterId, characterName) => {
+    const updatedFavoriteCharacters = favoriteCharacters.filter(
+      (character) => character.id !== characterId
     );
-    setFavoriteComics(updatedFavoriteComics);
-    setTotalComics(updatedFavoriteComics.length);
+    setFavoriteCharacters(updatedFavoriteCharacters);
+    setTotalCharacters(updatedFavoriteCharacters.length);
     localStorage.setItem(
-      "favoriteComics",
-      JSON.stringify(updatedFavoriteComics)
+      "favoriteCharacters",
+      JSON.stringify(updatedFavoriteCharacters)
     );
     setIsPopupVisible(false);
     setNotification({
-      message: `${comicTitle} removed from favorites!`, // Use the comic's title
+      message: `${characterName} removed from favorites!`,
       isVisible: true,
     });
   };
 
   const removeAllFavorites = () => {
-    setIsRemoveAllPopup(true); // Trigger the "remove all" popup
+    setIsRemoveAllPopup(true);
   };
 
   const confirmRemoveAllFavorites = () => {
-    setFavoriteComics([]);
-    setTotalComics(0);
-    localStorage.setItem("favoriteComics", JSON.stringify([]));
+    setFavoriteCharacters([]);
+    setTotalCharacters(0);
+    localStorage.setItem("favoriteCharacters", JSON.stringify([]));
     setIsRemoveAllPopup(false);
     setNotification({
-      message: "All comics removed from favorites!",
+      message: "All characters removed from favorites!",
       isVisible: true,
     });
   };
 
   const closePopup = () => {
     setIsPopupVisible(false);
-    setIsRemoveAllPopup(false); // Close both popups if either is active
+    setIsRemoveAllPopup(false);
   };
 
-  const openPopup = (comicId, comicTitle) => {
+  const openPopup = (characterId, characterName) => {
     setIsPopupVisible(true);
-    setSelectedComicId(comicId);
-    setSelectedComicTitle(comicTitle);
+    setSelectedCharacterId(characterId);
+    setSelectedCharacterName(characterName);
   };
 
   // Function to hide notification
@@ -90,7 +90,7 @@ const FavComics = () => {
     <>
       <Nav />
       <div className="title-wrapper">
-        <p className="comic-explore-title">Your Favorite Comics!</p>
+        <p className="character-explore-title">Your Favorite Characters!</p>
       </div>
 
       <Button
@@ -106,19 +106,22 @@ const FavComics = () => {
         onHide={hideNotification}
       />
 
-      {/* comic-card-section */}
-      {favoriteComics.length > 0 ? (
-        <div className="comic-card-section">
-          <ul className="comic-card-container">
-            {comicsToDisplay.length > 0
-              ? comicsToDisplay.map((comic) => (
-                  <li key={comic.id}>
-                    <div className="comic-card-inner">
+      {/* Character Card Section */}
+      {favoriteCharacters.length > 0 ? (
+        <div className="character-card-section">
+          <ul className="character-card-container">
+            {charactersToDisplay.length > 0
+              ? charactersToDisplay.map((character) => (
+                  <li key={character.id}>
+                    <div className="character-card-inner">
                       <LazyLoad height={300} offset={100}>
-                        <Link to={`/learn-comic/${comic.id}`} state={{ comic }}>
+                        <Link
+                          to={`/learn-character/${character.id}`}
+                          state={{ character }}
+                        >
                           <img
-                            src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                            alt={comic.title}
+                            src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                            alt={character.name}
                           />
                         </Link>
                         {/* Heart Button */}
@@ -126,7 +129,7 @@ const FavComics = () => {
                           className="heart-button"
                           onClick={(e) => {
                             e.stopPropagation(); // Prevent Link click from triggering
-                            openPopup(comic.id, comic.title); // Show the popup
+                            openPopup(character.id, character.name);
                           }}
                         >
                           <svg
@@ -140,9 +143,9 @@ const FavComics = () => {
                           </svg>
                         </div>
                         <p>
-                          {comic.title.length > 30
-                            ? `${comic.title.substring(0, 30)}...`
-                            : comic.title}
+                          {character.name.length > 30
+                            ? `${character.name.substring(0, 30)}...`
+                            : character.name}
                         </p>
                       </LazyLoad>
                     </div>
@@ -152,7 +155,7 @@ const FavComics = () => {
           </ul>
         </div>
       ) : (
-        <p className="no-favs-text">No favorite comics yet!</p>
+        <p className="no-favs-text">No favorite characters yet!</p>
       )}
 
       {totalPages > 1 && (
@@ -163,14 +166,14 @@ const FavComics = () => {
         />
       )}
 
-      {/* popup window */}
+      {/* Popup Window */}
       {isPopupVisible && (
         <FavPopup
           onClose={closePopup}
           removeFavorite={() =>
-            removeFavorite(selectedComicId, selectedComicTitle)
+            removeFavorite(selectedCharacterId, selectedCharacterName)
           }
-          comicTitle={selectedComicTitle}
+          comicTitle={selectedCharacterName}
         />
       )}
 
@@ -179,7 +182,7 @@ const FavComics = () => {
           onClose={closePopup}
           removeFavorite={confirmRemoveAllFavorites}
           comicTitle=""
-          isRemoveAll={true} // Pass the flag to indicate it's a remove all popup
+          isRemoveAll={true}
         />
       )}
 
@@ -188,4 +191,4 @@ const FavComics = () => {
   );
 };
 
-export default FavComics;
+export default FavCharacters;

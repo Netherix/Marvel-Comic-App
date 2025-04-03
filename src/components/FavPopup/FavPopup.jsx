@@ -20,7 +20,7 @@ const FavPopup = ({ onClose, removeFavorite, comicTitle, isRemoveAll }) => {
           <p className="popup-title">
             {isRemoveAll
               ? "Are you sure you want to remove all your favorite comics?"
-              : `Are you sure you want to remove <u>${comicTitle}</u> from your favorites?`}
+              : `Are you sure you want to remove ${comicTitle} from your favorites?`}
           </p>
 
           <div className="popup-buttons">

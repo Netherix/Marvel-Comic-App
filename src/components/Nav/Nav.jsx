@@ -17,8 +17,7 @@ function Nav() {
       <ul className="nav-links">
         <li onClick={() => navigate('/')}>Home/Explore</li>
         <li onClick={() => navigate('/favorite-comics')}>Favorite Comics</li>
-        <li onClick={() => navigate('/')}>Favorite Characters</li>
-        <li onClick={() => navigate('/')}>TBA</li>
+        <li onClick={() => navigate('/favorite-characters')}>Favorite Characters</li>
       </ul>
 
       <div className="hamburger" onClick={toggleMenu}>
@@ -31,8 +30,7 @@ function Nav() {
           <ul className="popup-links">
             <li onClick={() => navigate('/')}>Home/Explore</li>
             <li onClick={() => navigate('/favorite-comics')}>Favorite Comics</li>
-            <li onClick={() => navigate('/')}>Favorite Characters</li>
-            <li onClick={() => navigate('/')}>TBA</li>
+            <li onClick={() => navigate('/favorite-characters')}>Favorite Characters</li>
             <li onClick={toggleMenu}>Close</li>
           </ul>
         </div>

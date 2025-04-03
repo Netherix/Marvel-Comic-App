@@ -109,6 +109,7 @@ const Home = () => {
   return (
     <>
       <Nav />
+
       <div className="wolverine-container">
         <img
           src="src/assets/wolverine.png"
@@ -134,6 +135,7 @@ const Home = () => {
         onHide={() => setIsMessageVisible(false)}
       />
 
+      {/* character cards */}
       {characters.length > 0 && (
         <div className="character-card-section">
           <ul className="character-card-container">
