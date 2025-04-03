@@ -30,6 +30,7 @@ const Home = () => {
   const [favoriteMessage, setFavoriteMessage] = useState("");
   const [isMessageVisible, setIsMessageVisible] = useState(false);
 
+  // pagination variables
   const charactersPerPage = 8;
   const totalPages = Math.ceil(totalCharacters / charactersPerPage);
 
