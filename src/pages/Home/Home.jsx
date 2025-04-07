@@ -60,6 +60,7 @@ const Home = () => {
     setCharacters([]);
     setError(null);
     setCurrentPage(1);
+    setTotalCharacters(0);
   };
 
   const handleCharacterClick = (character) => {

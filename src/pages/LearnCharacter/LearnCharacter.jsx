@@ -42,7 +42,8 @@ const LearnCharacter = () => {
         Write only in paragraphs. Make sure to have sections to the description including: a general breakdown, 
         history, powers, and personality. Make sure you title these sections as well. Also make sure to stay true to 
         the Marvel comic books in regards to detailing the character and not the MCU movies. Please don't use any special characters 
-        like * or # within the description.Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.`;
+        like * or # within the description.Keep each section to one paragraph in length. Do not use bullet points at any point. Stick to paragraph form only.
+        Please do not include any titles that are not within the listed description sections.`;
 
       const result = await generateText(prompt);
       const cleanedDescription = result.replace(/[*#:]/g, "");

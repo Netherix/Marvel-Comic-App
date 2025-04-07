@@ -3,7 +3,7 @@
     padding-bottom: 1rem;
     width: 100%; /* Make sure the footer takes the full width */
     margin-top: 6.2rem;
-    height: 15rem;
+    height: auto;
   }
 
 .footer-container p {
@@ -28,7 +28,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 80%; /* Restrict the width of the footer content */
+    max-width: 60%; /* Restrict the width of the footer content */
     margin: 0 auto; /* Center the content */
   }
   
